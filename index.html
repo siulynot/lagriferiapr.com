@@ -351,9 +351,10 @@
     }
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
     }
+    /* ── Photo card ── */
     .menu-card {
       background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.06);
@@ -364,32 +365,60 @@
     }
     .menu-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-      border-color: rgba(244,197,66,0.25);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border-color: rgba(244,197,66,0.3);
     }
-    .menu-card-img {
-      aspect-ratio: 4/3; overflow: hidden;
-    }
+    .menu-card-img { aspect-ratio: 4/3; overflow: hidden; }
     .menu-card-img img {
       width: 100%; height: 100%; object-fit: cover;
       transition: transform 0.5s ease;
     }
     .menu-card:hover .menu-card-img img { transform: scale(1.07); }
-    .menu-card-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .menu-card-body { padding: 1.1rem 1.25rem 1.35rem; }
     .menu-card-category {
-      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--yellow); margin-bottom: 0.4rem; font-weight: 500;
+      font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--yellow); margin-bottom: 0.3rem; font-weight: 500;
     }
     .menu-card-name {
       font-family: 'Playfair Display', serif;
-      font-size: 1.2rem; font-weight: 700; color: var(--cream);
-      margin-bottom: 0.4rem;
+      font-size: 1.15rem; font-weight: 700; color: var(--cream);
+      margin-bottom: 0.2rem;
+    }
+    .menu-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem; color: var(--yellow);
+      letter-spacing: 0.05em; margin-bottom: 0.4rem;
     }
     .menu-card-desc {
-      font-size: 0.8rem; line-height: 1.5;
-      color: rgba(250,247,242,0.5);
+      font-size: 0.75rem; line-height: 1.5;
+      color: rgba(250,247,242,0.45);
+      letter-spacing: 0.03em;
     }
-    .menu-card[data-cat].hidden { display: none; }
+    /* ── No-photo card ── */
+    .menu-card.no-photo {
+      background: linear-gradient(135deg, rgba(14,24,44,0.98) 0%, rgba(8,14,26,1) 100%);
+      border-top: 3px solid var(--yellow);
+      border-left: 1px solid rgba(244,197,66,0.12);
+      border-right: 1px solid rgba(244,197,66,0.12);
+      border-bottom: 1px solid rgba(244,197,66,0.12);
+      position: relative; overflow: hidden;
+    }
+    .menu-card.no-photo::after {
+      content: attr(data-price);
+      position: absolute; bottom: -0.5rem; right: 1rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5.5rem; line-height: 1;
+      color: rgba(244,197,66,0.055);
+      pointer-events: none; user-select: none;
+    }
+    .menu-card.no-photo .menu-card-body {
+      padding: 1.4rem 1.25rem 1.5rem;
+      position: relative; z-index: 1;
+    }
+    .menu-card.no-photo .menu-price {
+      font-size: 1.25rem;
+    }
+    .menu-card[style*="display: none"] { display: none !important; }
 
     /* ── GALERÍA ─────────────────────────────────────── */
     #galeria {
@@ -662,96 +691,214 @@
     </div>
     <div class="menu-filters reveal">
       <button class="filter-btn active" data-filter="all">Todo</button>
-      <button class="filter-btn" data-filter="aperitivo">Aperitivos</button>
-      <button class="filter-btn" data-filter="plato">Platos</button>
+      <button class="filter-btn" data-filter="picar">Para Picar</button>
+      <button class="filter-btn" data-filter="frituras">Frituras</button>
+      <button class="filter-btn" data-filter="tacos">Tacos</button>
+      <button class="filter-btn" data-filter="platos">Platos</button>
     </div>
     <div class="menu-grid">
 
-      <div class="menu-card reveal" data-cat="aperitivo">
+      <!-- ── PARA PICAR ── -->
+
+      <div class="menu-card reveal" data-cat="picar">
         <div class="menu-card-img">
-          <img src="Fotos/Fish%20Tacos/IMG_0104.jpg" alt="Fish Tacos" loading="lazy">
+          <img src="Fotos/Chicken%20Wings/IMG_0203.jpg" alt="Alitas" loading="lazy">
         </div>
         <div class="menu-card-body">
-          <p class="menu-card-category">Aperitivo</p>
-          <h3 class="menu-card-name">Fish Tacos</h3>
-          <p class="menu-card-desc">Pescado crujiente, slaw de col, pico de gallo y salsa de chipotle en tortillas de maíz.</p>
+          <p class="menu-card-category">Para Picar</p>
+          <h3 class="menu-card-name">Alitas</h3>
+          <p class="menu-price">$12 <small style="font-size:0.75rem;opacity:0.6">½dz</small> &nbsp; $22 <small style="font-size:0.75rem;opacity:0.6">dz</small></p>
+          <p class="menu-card-desc">Salsa Naranja · Honey Sriracha · Plain</p>
         </div>
       </div>
 
-      <div class="menu-card reveal reveal-delay-1" data-cat="aperitivo">
-        <div class="menu-card-img">
-          <img src="Fotos/Chicken%20Wings/IMG_0203.jpg" alt="Chicken Wings" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Aperitivo</p>
-          <h3 class="menu-card-name">Chicken Wings</h3>
-          <p class="menu-card-desc">Alitas al estilo La Grifería — crujientes por fuera, jugosas por dentro. Elige tu salsa.</p>
-        </div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-2" data-cat="aperitivo">
+      <div class="menu-card reveal reveal-delay-1" data-cat="picar">
         <div class="menu-card-img">
           <img src="Fotos/Dumplings/IMG_0197.jpg" alt="Dumplings" loading="lazy">
         </div>
         <div class="menu-card-body">
-          <p class="menu-card-category">Aperitivo</p>
-          <h3 class="menu-card-name">Dumplings</h3>
-          <p class="menu-card-desc">Gyozas al vapor o a la plancha con relleno de cerdo y jengibre. Con salsa ponzu.</p>
+          <p class="menu-card-category">Para Picar</p>
+          <h3 class="menu-card-name">Dumplings (5)</h3>
+          <p class="menu-price">$8</p>
+          <p class="menu-card-desc">Cerdo o Veggie · Sesame · Soya · Cebollines</p>
         </div>
       </div>
 
-      <div class="menu-card reveal reveal-delay-3" data-cat="aperitivo">
+      <div class="menu-card reveal reveal-delay-2" data-cat="picar">
+        <div class="menu-card-img">
+          <img src="Fotos/%20calamares/IMG_0214.jpg" alt="Calamares Fritos" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Para Picar</p>
+          <h3 class="menu-card-name">Calamares Fritos</h3>
+          <p class="menu-price">$12</p>
+          <p class="menu-card-desc">Salsa de chile dulce y limón · Spicy Mayo</p>
+        </div>
+      </div>
+
+      <div class="menu-card reveal reveal-delay-3" data-cat="picar">
         <div class="menu-card-img">
           <img src="Fotos/Tuna%20Tartar/IMG_0122.jpg" alt="Tuna Tartar" loading="lazy">
         </div>
         <div class="menu-card-body">
-          <p class="menu-card-category">Aperitivo</p>
+          <p class="menu-card-category">Para Picar</p>
           <h3 class="menu-card-name">Tuna Tartar</h3>
-          <p class="menu-card-desc">Atún fresco con aguacate, sésamo, sriracha y chips de wonton. Fresco y elegante.</p>
+          <p class="menu-price">$15</p>
+          <p class="menu-card-desc">Sesame Lime Vinaigrette</p>
         </div>
       </div>
 
-      <div class="menu-card reveal" data-cat="aperitivo">
+      <div class="menu-card no-photo reveal" data-cat="picar" data-price="$9">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Para Picar</p>
+          <h3 class="menu-card-name">Masitas de Cerdo</h3>
+          <p class="menu-price">$9</p>
+          <p class="menu-card-desc">Mojo · Cebolla encurtida</p>
+        </div>
+      </div>
+
+      <div class="menu-card no-photo reveal reveal-delay-1" data-cat="picar" data-price="$9">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Para Picar</p>
+          <h3 class="menu-card-name">Masitas de Pollo</h3>
+          <p class="menu-price">$9</p>
+          <p class="menu-card-desc">Mojo · Cebolla encurtida</p>
+        </div>
+      </div>
+
+      <div class="menu-card no-photo reveal reveal-delay-2" data-cat="picar" data-price="$12">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Para Picar</p>
+          <h3 class="menu-card-name">Masitas de Pescado</h3>
+          <p class="menu-price">$12</p>
+          <p class="menu-card-desc">Mojo · Cebolla encurtida</p>
+        </div>
+      </div>
+
+      <!-- ── FRITURAS ── -->
+
+      <div class="menu-card no-photo reveal" data-cat="frituras" data-price="$8">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Frituras</p>
+          <h3 class="menu-card-name">Croquetas (5)</h3>
+          <p class="menu-price">$8</p>
+          <p class="menu-card-desc">Panko · Aioli</p>
+        </div>
+      </div>
+
+      <div class="menu-card no-photo reveal reveal-delay-1" data-cat="frituras" data-price="$8">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Frituras</p>
+          <h3 class="menu-card-name">Bolitas de Queso (6)</h3>
+          <p class="menu-price">$8</p>
+          <p class="menu-card-desc">Mayo Ketchup</p>
+        </div>
+      </div>
+
+      <div class="menu-card no-photo reveal reveal-delay-2" data-cat="frituras" data-price="$8">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Frituras</p>
+          <h3 class="menu-card-name">Mini Alcapurrias (5)</h3>
+          <p class="menu-price">$8</p>
+          <p class="menu-card-desc">Guineo y Carne</p>
+        </div>
+      </div>
+
+      <div class="menu-card no-photo reveal reveal-delay-3" data-cat="frituras" data-price="$5">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Frituras</p>
+          <h3 class="menu-card-name">Bacalaitos (5)</h3>
+          <p class="menu-price">$5</p>
+          <p class="menu-card-desc">Masa · Bacalao</p>
+        </div>
+      </div>
+
+      <div class="menu-card no-photo reveal" data-cat="frituras" data-price="$15">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Frituras</p>
+          <h3 class="menu-card-name">Camarones Empanados (5)</h3>
+          <p class="menu-price">$15</p>
+          <p class="menu-card-desc">Spicy Mayo</p>
+        </div>
+      </div>
+
+      <div class="menu-card no-photo reveal reveal-delay-1" data-cat="frituras" data-price="$5">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Frituras</p>
+          <h3 class="menu-card-name">Taro Fries</h3>
+          <p class="menu-price">$5</p>
+          <p class="menu-card-desc">Malanga Chips</p>
+        </div>
+      </div>
+
+      <div class="menu-card no-photo reveal reveal-delay-2" data-cat="frituras" data-price="$5">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Frituras</p>
+          <h3 class="menu-card-name">Tostones (5)</h3>
+          <p class="menu-price">$5</p>
+          <p class="menu-card-desc">Pana · Mayo Ketchup</p>
+        </div>
+      </div>
+
+      <!-- ── TACOS ── -->
+
+      <div class="menu-card no-photo reveal" data-cat="tacos" data-price="$12">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Tacos</p>
+          <h3 class="menu-card-name">Tacos de Pollo (3)</h3>
+          <p class="menu-price">$12</p>
+          <p class="menu-card-desc">Coleslaw · Spicy Mayo</p>
+        </div>
+      </div>
+
+      <div class="menu-card reveal reveal-delay-1" data-cat="tacos">
         <div class="menu-card-img">
-          <img src="Fotos/calamares/IMG_0214.jpg" alt="Calamares" loading="lazy">
+          <img src="Fotos/Fish%20Tacos/IMG_0209.jpg" alt="Tacos de Pescado" loading="lazy">
         </div>
         <div class="menu-card-body">
-          <p class="menu-card-category">Aperitivo</p>
-          <h3 class="menu-card-name">Calamares</h3>
-          <p class="menu-card-desc">Calamares fritos en anillos dorados con aioli de limón y salsa marinara. Clásico y perfecto.</p>
+          <p class="menu-card-category">Tacos</p>
+          <h3 class="menu-card-name">Tacos de Pescado (3)</h3>
+          <p class="menu-price">$14</p>
+          <p class="menu-card-desc">Coleslaw · Spicy Mayo</p>
         </div>
       </div>
 
-      <div class="menu-card reveal reveal-delay-1" data-cat="aperitivo">
-        <div class="menu-card-img">
-          <img src="Fotos/Edamames/IMG_0134.jpg" alt="Edamames" loading="lazy">
-        </div>
+      <div class="menu-card no-photo reveal reveal-delay-2" data-cat="tacos" data-price="$12">
         <div class="menu-card-body">
-          <p class="menu-card-category">Aperitivo</p>
-          <h3 class="menu-card-name">Edamames</h3>
-          <p class="menu-card-desc">Vainas de edamame al vapor con sal marina y ajo. El snack perfecto para acompañar tu cerveza.</p>
+          <p class="menu-card-category">Tacos</p>
+          <h3 class="menu-card-name">Tacos de Cerdo (3)</h3>
+          <p class="menu-price">$12</p>
+          <p class="menu-card-desc">Coleslaw · Spicy Mayo</p>
         </div>
       </div>
 
-      <div class="menu-card reveal reveal-delay-2" data-cat="aperitivo">
-        <div class="menu-card-img">
-          <img src="Fotos/Papaya%20Salad/IMG_9739.jpg" alt="Papaya Salad" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Aperitivo</p>
-          <h3 class="menu-card-name">Papaya Salad</h3>
-          <p class="menu-card-desc">Ensalada de papaya verde estilo Thai — picante, ácida, dulce. Con maní y camarones secos.</p>
-        </div>
-      </div>
+      <!-- ── PLATOS ── -->
 
-      <div class="menu-card reveal reveal-delay-3" data-cat="plato">
+      <div class="menu-card reveal" data-cat="platos">
         <div class="menu-card-img">
           <img src="Fotos/Pad%20thai/IMG_9776.jpg" alt="Pad Thai" loading="lazy">
         </div>
         <div class="menu-card-body">
-          <p class="menu-card-category">Plato</p>
+          <p class="menu-card-category">Platos</p>
           <h3 class="menu-card-name">Pad Thai</h3>
-          <p class="menu-card-desc">Fideos de arroz salteados con huevo, tofu o camarones, tamarindo, maní tostado y lima.</p>
+          <p class="menu-price">$11 <small style="font-size:0.7rem;opacity:0.6">veggie</small> &nbsp; $19 <small style="font-size:0.7rem;opacity:0.6">pollo/cerdo</small> &nbsp; $22 <small style="font-size:0.7rem;opacity:0.6">camarones</small></p>
+        </div>
+      </div>
+
+      <div class="menu-card no-photo reveal reveal-delay-1" data-cat="platos" data-price="$17">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Platos</p>
+          <h3 class="menu-card-name">Arroz Frito</h3>
+          <p class="menu-price">$9 <small style="font-size:0.7rem;opacity:0.6">veggie</small> &nbsp; $17 <small style="font-size:0.7rem;opacity:0.6">pollo/cerdo</small> &nbsp; $19 <small style="font-size:0.7rem;opacity:0.6">camarones</small></p>
+        </div>
+      </div>
+
+      <div class="menu-card no-photo reveal reveal-delay-2" data-cat="platos" data-price="$19">
+        <div class="menu-card-body">
+          <p class="menu-card-category">Platos</p>
+          <h3 class="menu-card-name">Poke Bowl</h3>
+          <p class="menu-price">$19</p>
+          <p class="menu-card-desc">Ahi Tuna · Arroz · Aguacate · Pepinillo</p>
         </div>
       </div>
 
@@ -919,6 +1066,10 @@
         menuCards.forEach(card => {
           const show = filter === 'all' || card.dataset.cat === filter;
           card.style.display = show ? '' : 'none';
+        });
+        // re-trigger reveal on newly visible cards
+        document.querySelectorAll('.menu-card:not([style*="none"]) .reveal:not(.visible)').forEach(el => {
+          el.classList.add('visible');
         });
       });
     });
