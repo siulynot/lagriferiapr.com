@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Grifería — Cerveza Artesanal · Aguadilla, PR</title>
+  <meta name="description" content="Barra de cerveza artesanal frente al mar en Aguadilla, Puerto Rico. Cervezas Camacho de grifo, gastronomía creativa y la mejor vista del oeste.">
+  <meta property="og:title" content="La Grifería — Cerveza Artesanal · Aguadilla, PR">
+  <meta property="og:image" content="Fotos/IMG_9683.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0B2545;
+      --yellow: #F4C542;
+      --ocean:  #1A5F8A;
+      --dark:   #080E1A;
+      --cream:  #FAF7F2;
+      --mist:   #8B9CAB;
+      --coral:  #E07B54;
+      --radius: 4px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    /* ── SCROLLBAR ───────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 4rem;
+      transition: background 0.4s, backdrop-filter 0.4s, padding 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(8, 14, 26, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 0.9rem 4rem;
+      border-bottom: 1px solid rgba(244,197,66,0.15);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.75rem;
+      letter-spacing: 0.1em;
+      color: var(--cream);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo span { color: var(--yellow); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--cream); text-decoration: none;
+      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 500; opacity: 0.8;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--yellow); }
+    .nav-cta {
+      background: var(--yellow); color: var(--navy);
+      padding: 0.6rem 1.4rem; border-radius: var(--radius);
+      font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(244,197,66,0.4); }
+
+    /* hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; display: block; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 99;
+      background: var(--dark); flex-direction: column;
+      align-items: center; justify-content: center; gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem;
+      letter-spacing: 0.1em; color: var(--cream); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--yellow); }
+
+    /* ── HERO ────────────────────────────────────────── */
+    .hero {
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('Fotos/IMG_9683.jpg');
+      background-size: cover; background-position: center 30%;
+      transform: scale(1.05);
+      transition: transform 8s ease-out;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(8,14,26,0.2) 0%,
+        rgba(8,14,26,0.1) 40%,
+        rgba(8,14,26,0.7) 75%,
+        rgba(8,14,26,0.95) 100%
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 4rem 5rem;
+      max-width: 900px;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--yellow); font-weight: 500; margin-bottom: 1rem;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4.5rem, 12vw, 11rem);
+      line-height: 0.9; letter-spacing: 0.02em;
+      color: var(--cream);
+      opacity: 0; transform: translateY(30px);
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+    .hero-title .accent { color: var(--yellow); }
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: rgba(250,247,242,0.7);
+      font-weight: 300; max-width: 480px; line-height: 1.6;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.8s 0.7s forwards;
+    }
+    .hero-actions {
+      margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.8s 0.9s forwards;
+    }
+    .btn-primary {
+      background: var(--yellow); color: var(--navy);
+      padding: 0.85rem 2rem; border-radius: var(--radius);
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(244,197,66,0.5); }
+    .btn-outline {
+      border: 1px solid rgba(250,247,242,0.4); color: var(--cream);
+      padding: 0.85rem 2rem; border-radius: var(--radius);
+      font-weight: 500; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--yellow); background: rgba(244,197,66,0.08); }
+
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; right: 4rem; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(250,247,242,0.4);
+    }
+    .hero-scroll::after {
+      content: ''; width: 1px; height: 50px;
+      background: linear-gradient(to bottom, rgba(244,197,66,0.6), transparent);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── TICKER ──────────────────────────────────────── */
+    .ticker {
+      background: var(--yellow); color: var(--navy);
+      overflow: hidden; white-space: nowrap; padding: 0.75rem 0;
+    }
+    .ticker-inner {
+      display: inline-flex; gap: 0;
+      animation: ticker 20s linear infinite;
+    }
+    .ticker-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem; letter-spacing: 0.15em;
+      padding: 0 2rem;
+    }
+    .ticker-dot { opacity: 0.4; }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION COMMONS ─────────────────────────────── */
+    section { padding: 6rem 4rem; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--yellow); font-weight: 500; margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.15; font-weight: 700;
+      color: var(--cream);
+    }
+    .section-title em { font-style: italic; color: var(--yellow); }
+
+    /* reveal on scroll */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── PILLARS ─────────────────────────────────────── */
+    #nosotros { background: var(--dark); }
+    .pillars-header { max-width: 600px; margin-bottom: 4rem; }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: rgba(244,197,66,0.15);
+    }
+    .pillar {
+      position: relative; overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: default;
+    }
+    .pillar img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.7s ease, filter 0.5s ease;
+      filter: brightness(0.6) saturate(0.8);
+    }
+    .pillar:hover img { transform: scale(1.06); filter: brightness(0.75) saturate(1); }
+    .pillar-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,14,26,0.9) 0%, rgba(8,14,26,0.2) 60%, transparent 100%);
+    }
+    .pillar-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2.5rem 2rem;
+    }
+    .pillar-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem; line-height: 1;
+      color: var(--yellow); opacity: 0.25;
+      margin-bottom: -0.5rem;
+    }
+    .pillar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--cream); margin-bottom: 0.5rem;
+    }
+    .pillar-desc {
+      font-size: 0.85rem; line-height: 1.6;
+      color: rgba(250,247,242,0.65); max-width: 280px;
+    }
+    .pillar-line {
+      width: 0; height: 2px; background: var(--yellow);
+      margin-bottom: 0.75rem;
+      transition: width 0.5s ease;
+    }
+    .pillar:hover .pillar-line { width: 40px; }
+
+    /* ── CERVEZAS ────────────────────────────────────── */
+    #cervezas {
+      background: linear-gradient(135deg, #0D1B2A 0%, #1A0A0A 50%, #0D1B2A 100%);
+      position: relative; overflow: hidden;
+    }
+    #cervezas::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(244,197,66,0.07) 0%, transparent 70%);
+    }
+    .cerveza-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+      position: relative;
+    }
+    .cerveza-text .section-label { margin-bottom: 1rem; }
+    .cerveza-text .section-title { margin-bottom: 1.5rem; }
+    .cerveza-text p {
+      font-size: 1rem; line-height: 1.8; color: rgba(250,247,242,0.65);
+      max-width: 460px; margin-bottom: 1rem;
+    }
+    .cerveza-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+    .cerveza-tag {
+      border: 1px solid rgba(244,197,66,0.35);
+      color: var(--yellow); padding: 0.4rem 1rem;
+      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+      border-radius: 999px;
+    }
+    .cerveza-visual {
+      position: relative;
+    }
+    .cerveza-main-img {
+      width: 100%; border-radius: 2px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    }
+    .cerveza-accent-img {
+      position: absolute; width: 55%; bottom: -3rem; right: -2rem;
+      border-radius: 2px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      border: 3px solid var(--dark);
+    }
+    .cerveza-glow {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(244,197,66,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── MENU ────────────────────────────────────────── */
+    #menu { background: #0E141F; }
+    .menu-header { max-width: 600px; margin-bottom: 3rem; }
+    .menu-filters {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid rgba(250,247,242,0.2);
+      color: rgba(250,247,242,0.6);
+      padding: 0.5rem 1.25rem;
+      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      border-radius: 999px; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--yellow); border-color: var(--yellow);
+      color: var(--navy); font-weight: 600;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .menu-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: default;
+    }
+    .menu-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      border-color: rgba(244,197,66,0.25);
+    }
+    .menu-card-img {
+      aspect-ratio: 4/3; overflow: hidden;
+    }
+    .menu-card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .menu-card:hover .menu-card-img img { transform: scale(1.07); }
+    .menu-card-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .menu-card-category {
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--yellow); margin-bottom: 0.4rem; font-weight: 500;
+    }
+    .menu-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700; color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+    .menu-card-desc {
+      font-size: 0.8rem; line-height: 1.5;
+      color: rgba(250,247,242,0.5);
+    }
+    .menu-card[data-cat].hidden { display: none; }
+
+    /* ── GALERÍA ─────────────────────────────────────── */
+    #galeria {
+      background: var(--dark); padding: 6rem 0;
+    }
+    .galeria-header { padding: 0 4rem 3rem; }
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      gap: 4px;
+    }
+    .galeria-grid .g-item { overflow: hidden; }
+    .galeria-grid .g-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease, filter 0.4s;
+      filter: brightness(0.85) saturate(0.9);
+    }
+    .galeria-grid .g-item:hover img {
+      transform: scale(1.05);
+      filter: brightness(1) saturate(1.1);
+    }
+    .g-tall { grid-row: span 2; }
+    .g-wide { grid-column: span 2; }
+    .galeria-grid .g-item { aspect-ratio: 1; }
+    .g-tall { aspect-ratio: unset; }
+    .g-wide { aspect-ratio: 2/1; }
+    .g-tall.g-wide { aspect-ratio: unset; }
+
+    /* ── VISÍTANOS ───────────────────────────────────── */
+    #visita {
+      background: #090E1B;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; padding: 0;
+    }
+    .visita-info { padding: 6rem 4rem; }
+    .visita-info .section-label { margin-bottom: 1rem; }
+    .visita-info .section-title { margin-bottom: 2.5rem; }
+    .info-block { margin-bottom: 2.5rem; }
+    .info-block-label {
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--mist); margin-bottom: 0.5rem; font-weight: 500;
+    }
+    .info-block-value {
+      font-size: 1rem; color: var(--cream); line-height: 1.7;
+    }
+    .info-block-value strong { color: var(--yellow); }
+    .hours-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1.5rem; }
+    .hours-day { color: var(--mist); font-size: 0.85rem; }
+    .hours-time { color: var(--cream); font-size: 0.85rem; }
+    .social-row { display: flex; gap: 1rem; margin-top: 2rem; }
+    .social-btn {
+      border: 1px solid rgba(250,247,242,0.2);
+      color: var(--cream); padding: 0.6rem 1.25rem;
+      text-decoration: none; font-size: 0.8rem;
+      border-radius: var(--radius); letter-spacing: 0.05em;
+      transition: border-color 0.2s, color 0.2s;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .social-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+    .visita-map { position: relative; min-height: 500px; }
+    .visita-map iframe {
+      width: 100%; height: 100%; border: none;
+      filter: grayscale(1) invert(1) brightness(0.9);
+    }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(244,197,66,0.15);
+      padding: 3rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem; letter-spacing: 0.12em;
+      color: var(--cream);
+    }
+    .footer-brand span { color: var(--yellow); }
+    .footer-copy {
+      font-size: 0.75rem; color: var(--mist);
+      text-align: center;
+    }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a {
+      font-size: 0.75rem; color: var(--mist);
+      text-decoration: none; letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--yellow); }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1024px) {
+      nav { padding: 1.25rem 2rem; }
+      nav.scrolled { padding: 0.9rem 2rem; }
+      section { padding: 5rem 2rem; }
+      .pillars-grid { grid-template-columns: repeat(3, 1fr); }
+      .cerveza-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .cerveza-accent-img { display: none; }
+      #visita { grid-template-columns: 1fr; }
+      .visita-map { min-height: 350px; }
+      .galeria-grid { grid-template-columns: repeat(2, 1fr); }
+      .g-tall { grid-row: span 1; }
+      .g-wide { grid-column: span 2; }
+      footer { padding: 2.5rem 2rem; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1.25rem 1.5rem; }
+      nav.scrolled { padding: 0.9rem 1.5rem; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero-content { padding: 0 1.5rem 4rem; }
+      .hero-scroll { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillar { aspect-ratio: 16/9; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .galeria-grid { grid-template-columns: repeat(2, 1fr); }
+      .galeria-header { padding: 0 1.5rem 2.5rem; }
+      .visita-info { padding: 4rem 1.5rem; }
+      footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; }
+      .footer-links { flex-wrap: wrap; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ──────────────────────────────────────────── -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">La <span>Grifería</span></a>
+    <ul class="nav-links">
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#cervezas">Cervezas</a></li>
+      <li><a href="#menu">Menú</a></li>
+      <li><a href="#galeria">Galería</a></li>
+    </ul>
+    <a href="#visita" class="nav-cta">Visítanos</a>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- mobile menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#nosotros"  onclick="closeMobile()">Nosotros</a>
+    <a href="#cervezas"  onclick="closeMobile()">Cervezas</a>
+    <a href="#menu"      onclick="closeMobile()">Menú</a>
+    <a href="#galeria"   onclick="closeMobile()">Galería</a>
+    <a href="#visita"    onclick="closeMobile()">Visítanos</a>
+  </div>
+
+  <!-- ── HERO ─────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Aguadilla, Puerto Rico · Frente al Mar</p>
+      <h1 class="hero-title">La<br><span class="accent">Grifería</span></h1>
+      <p class="hero-sub">Cerveza artesanal de grifo, gastronomía creativa y la mejor vista del oeste de Puerto Rico.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn-primary">Ver Menú</a>
+        <a href="#visita" class="btn-outline">Cómo Llegar</a>
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ── TICKER ────────────────────────────────────────── -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-inner">
+      <span class="ticker-item">Cerveza Artesanal</span>
+      <span class="ticker-item ticker-dot">·</span>
+      <span class="ticker-item">Frente al Mar</span>
+      <span class="ticker-item ticker-dot">·</span>
+      <span class="ticker-item">Aguadilla, PR</span>
+      <span class="ticker-item ticker-dot">·</span>
+      <span class="ticker-item">Cervezas Camacho</span>
+      <span class="ticker-item ticker-dot">·</span>
+      <span class="ticker-item">Buenas Vibras</span>
+      <span class="ticker-item ticker-dot">·</span>
+      <span class="ticker-item">Gastronomía Creativa</span>
+      <span class="ticker-item ticker-dot">·</span>
+      <span class="ticker-item">Cerveza Artesanal</span>
+      <span class="ticker-item ticker-dot">·</span>
+      <span class="ticker-item">Frente al Mar</span>
+      <span class="ticker-item ticker-dot">·</span>
+      <span class="ticker-item">Aguadilla, PR</span>
+      <span class="ticker-item ticker-dot">·</span>
+      <span class="ticker-item">Cervezas Camacho</span>
+      <span class="ticker-item ticker-dot">·</span>
+      <span class="ticker-item">Buenas Vibras</span>
+      <span class="ticker-item ticker-dot">·</span>
+      <span class="ticker-item">Gastronomía Creativa</span>
+      <span class="ticker-item ticker-dot">·</span>
+    </div>
+  </div>
+
+  <!-- ── NOSOTROS / PILLARS ────────────────────────────── -->
+  <section id="nosotros">
+    <div class="pillars-header">
+      <p class="section-label reveal">Lo Que Somos</p>
+      <h2 class="section-title reveal reveal-delay-1">Más que una barra.<br><em>Una experiencia.</em></h2>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar reveal">
+        <img src="Fotos/IMG_9685.jpg" alt="Vista al mar desde La Grifería" loading="lazy">
+        <div class="pillar-overlay"></div>
+        <div class="pillar-content">
+          <div class="pillar-number">01</div>
+          <div class="pillar-line"></div>
+          <h3 class="pillar-title">La Vista</h3>
+          <p class="pillar-desc">Una terraza abierta con el Mar Caribe como telón de fondo. La mejor vista del oeste de Puerto Rico.</p>
+        </div>
+      </div>
+      <div class="pillar reveal reveal-delay-1">
+        <img src="Fotos/IMG_9752.jpg" alt="Cerveza artesanal de grifo" loading="lazy">
+        <div class="pillar-overlay"></div>
+        <div class="pillar-content">
+          <div class="pillar-number">02</div>
+          <div class="pillar-line"></div>
+          <h3 class="pillar-title">La Cerveza</h3>
+          <p class="pillar-desc">Cervezas Camacho de grifo — IPAs, Sours, Stouts y más. Rotación constante, siempre fresca.</p>
+        </div>
+      </div>
+      <div class="pillar reveal reveal-delay-2">
+        <img src="Fotos/IMG_0145.jpg" alt="Gastronomía creativa en La Grifería" loading="lazy">
+        <div class="pillar-overlay"></div>
+        <div class="pillar-content">
+          <div class="pillar-number">03</div>
+          <div class="pillar-line"></div>
+          <h3 class="pillar-title">La Comida</h3>
+          <p class="pillar-desc">Menú con influencias asiáticas y caribeñas. Fish tacos, dumplings, tuna tartar y más.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CERVEZAS ──────────────────────────────────────── -->
+  <section id="cervezas">
+    <div class="cerveza-layout">
+      <div class="cerveza-text">
+        <p class="section-label reveal">De Grifo, Siempre</p>
+        <h2 class="section-title reveal reveal-delay-1">Cervezas<br><em>Camacho</em></h2>
+        <p class="reveal reveal-delay-2">Somos el hogar de Cervezas Camacho en Aguadilla — una de las cervecerías artesanales más reconocidas de Puerto Rico. Cada lata, cada tiro, es una historia de pasión y sabor boricua.</p>
+        <p class="reveal reveal-delay-2">Nuestra selección rota constantemente para que siempre encuentres algo nuevo. Desde una NEIPA tropical hasta un Sour de mango refrescante.</p>
+        <div class="cerveza-tags reveal reveal-delay-3">
+          <span class="cerveza-tag">IPAs</span>
+          <span class="cerveza-tag">Sours</span>
+          <span class="cerveza-tag">Stouts</span>
+          <span class="cerveza-tag">NEIPAs</span>
+          <span class="cerveza-tag">Pale Ales</span>
+          <span class="cerveza-tag">Especiales</span>
+        </div>
+      </div>
+      <div class="cerveza-visual reveal reveal-delay-1">
+        <div class="cerveza-glow"></div>
+        <img class="cerveza-main-img" src="Fotos/Cerveza/IMG_9874.jpg" alt="Cervezas Camacho" loading="lazy">
+        <img class="cerveza-accent-img" src="Fotos/IMG_9748.jpg" alt="Cerveza de grifo" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MENÚ ──────────────────────────────────────────── -->
+  <section id="menu">
+    <div class="menu-header">
+      <p class="section-label reveal">Lo Que Servimos</p>
+      <h2 class="section-title reveal reveal-delay-1">El <em>Menú</em></h2>
+    </div>
+    <div class="menu-filters reveal">
+      <button class="filter-btn active" data-filter="all">Todo</button>
+      <button class="filter-btn" data-filter="aperitivo">Aperitivos</button>
+      <button class="filter-btn" data-filter="plato">Platos</button>
+    </div>
+    <div class="menu-grid">
+
+      <div class="menu-card reveal" data-cat="aperitivo">
+        <div class="menu-card-img">
+          <img src="Fotos/Fish%20Tacos/IMG_0104.jpg" alt="Fish Tacos" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Aperitivo</p>
+          <h3 class="menu-card-name">Fish Tacos</h3>
+          <p class="menu-card-desc">Pescado crujiente, slaw de col, pico de gallo y salsa de chipotle en tortillas de maíz.</p>
+        </div>
+      </div>
+
+      <div class="menu-card reveal reveal-delay-1" data-cat="aperitivo">
+        <div class="menu-card-img">
+          <img src="Fotos/Chicken%20Wings/IMG_0203.jpg" alt="Chicken Wings" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Aperitivo</p>
+          <h3 class="menu-card-name">Chicken Wings</h3>
+          <p class="menu-card-desc">Alitas al estilo La Grifería — crujientes por fuera, jugosas por dentro. Elige tu salsa.</p>
+        </div>
+      </div>
+
+      <div class="menu-card reveal reveal-delay-2" data-cat="aperitivo">
+        <div class="menu-card-img">
+          <img src="Fotos/Dumplings/IMG_0197.jpg" alt="Dumplings" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Aperitivo</p>
+          <h3 class="menu-card-name">Dumplings</h3>
+          <p class="menu-card-desc">Gyozas al vapor o a la plancha con relleno de cerdo y jengibre. Con salsa ponzu.</p>
+        </div>
+      </div>
+
+      <div class="menu-card reveal reveal-delay-3" data-cat="aperitivo">
+        <div class="menu-card-img">
+          <img src="Fotos/Tuna%20Tartar/IMG_0122.jpg" alt="Tuna Tartar" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Aperitivo</p>
+          <h3 class="menu-card-name">Tuna Tartar</h3>
+          <p class="menu-card-desc">Atún fresco con aguacate, sésamo, sriracha y chips de wonton. Fresco y elegante.</p>
+        </div>
+      </div>
+
+      <div class="menu-card reveal" data-cat="aperitivo">
+        <div class="menu-card-img">
+          <img src="Fotos/calamares/IMG_0214.jpg" alt="Calamares" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Aperitivo</p>
+          <h3 class="menu-card-name">Calamares</h3>
+          <p class="menu-card-desc">Calamares fritos en anillos dorados con aioli de limón y salsa marinara. Clásico y perfecto.</p>
+        </div>
+      </div>
+
+      <div class="menu-card reveal reveal-delay-1" data-cat="aperitivo">
+        <div class="menu-card-img">
+          <img src="Fotos/Edamames/IMG_0134.jpg" alt="Edamames" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Aperitivo</p>
+          <h3 class="menu-card-name">Edamames</h3>
+          <p class="menu-card-desc">Vainas de edamame al vapor con sal marina y ajo. El snack perfecto para acompañar tu cerveza.</p>
+        </div>
+      </div>
+
+      <div class="menu-card reveal reveal-delay-2" data-cat="aperitivo">
+        <div class="menu-card-img">
+          <img src="Fotos/Papaya%20Salad/IMG_9739.jpg" alt="Papaya Salad" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Aperitivo</p>
+          <h3 class="menu-card-name">Papaya Salad</h3>
+          <p class="menu-card-desc">Ensalada de papaya verde estilo Thai — picante, ácida, dulce. Con maní y camarones secos.</p>
+        </div>
+      </div>
+
+      <div class="menu-card reveal reveal-delay-3" data-cat="plato">
+        <div class="menu-card-img">
+          <img src="Fotos/Pad%20thai/IMG_9776.jpg" alt="Pad Thai" loading="lazy">
+        </div>
+        <div class="menu-card-body">
+          <p class="menu-card-category">Plato</p>
+          <h3 class="menu-card-name">Pad Thai</h3>
+          <p class="menu-card-desc">Fideos de arroz salteados con huevo, tofu o camarones, tamarindo, maní tostado y lima.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── GALERÍA ───────────────────────────────────────── -->
+  <section id="galeria">
+    <div class="galeria-header">
+      <p class="section-label reveal">El Ambiente</p>
+      <h2 class="section-title reveal reveal-delay-1">Así se ve<br><em>La Grifería</em></h2>
+    </div>
+    <div class="galeria-grid">
+      <div class="g-item g-tall">
+        <img src="Fotos/IMG_9686.jpg" alt="La Grifería" loading="lazy">
+      </div>
+      <div class="g-item">
+        <img src="Fotos/Cerveza/IMG_9875.jpg" alt="Cerveza artesanal" loading="lazy">
+      </div>
+      <div class="g-item">
+        <img src="Fotos/Fish%20Tacos/IMG_0209.jpg" alt="Fish Tacos" loading="lazy">
+      </div>
+      <div class="g-item">
+        <img src="Fotos/Cerveza/IMG_9876.jpg" alt="Cerveza Camacho" loading="lazy">
+      </div>
+      <div class="g-item g-wide">
+        <img src="Fotos/IMG_0146.jpg" alt="Ambiente La Grifería" loading="lazy" style="object-position: center 60%;">
+      </div>
+      <div class="g-item">
+        <img src="Fotos/Chicken%20Wings/IMG_0205.jpg" alt="Chicken wings" loading="lazy">
+      </div>
+      <div class="g-item">
+        <img src="Fotos/Tuna%20Tartar/IMG_0194.jpg" alt="Tuna Tartar" loading="lazy">
+      </div>
+      <div class="g-item">
+        <img src="Fotos/Cerveza/IMG_9882.jpg" alt="Cerveza" loading="lazy">
+      </div>
+      <div class="g-item">
+        <img src="Fotos/Dumplings/IMG_0198.jpg" alt="Dumplings" loading="lazy">
+      </div>
+      <div class="g-item">
+        <img src="Fotos/Papaya%20Salad/IMG_9742.jpg" alt="Papaya salad" loading="lazy">
+      </div>
+      <div class="g-item">
+        <img src="Fotos/calamares/IMG_0215.jpg" alt="Calamares" loading="lazy">
+      </div>
+      <div class="g-item">
+        <img src="Fotos/Edamames/IMG_0137.jpg" alt="Edamames" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VISÍTANOS ─────────────────────────────────────── -->
+  <div id="visita">
+    <div class="visita-info">
+      <p class="section-label reveal">Encuéntranos</p>
+      <h2 class="section-title reveal reveal-delay-1">Ven a<br><em>vernos</em></h2>
+
+      <div class="info-block reveal reveal-delay-2">
+        <p class="info-block-label">Dirección</p>
+        <p class="info-block-value">Paseo Real Marina<br>Aguadilla, PR 00603</p>
+      </div>
+
+      <div class="info-block reveal reveal-delay-2">
+        <p class="info-block-label">Horario</p>
+        <div class="hours-grid">
+          <span class="hours-day">Lunes – Jueves</span>
+          <span class="hours-time"><strong>12:00 pm – 10:00 pm</strong></span>
+          <span class="hours-day">Viernes – Sábado</span>
+          <span class="hours-time"><strong>12:00 pm – 11:00 pm</strong></span>
+          <span class="hours-day">Domingo</span>
+          <span class="hours-time"><strong>12:00 pm – 9:00 pm</strong></span>
+        </div>
+      </div>
+
+      <div class="info-block reveal reveal-delay-3">
+        <p class="info-block-label">Contacto</p>
+        <p class="info-block-value">
+          <strong>787-214-0373</strong>
+        </p>
+      </div>
+
+      <div class="social-row reveal reveal-delay-3">
+        <a href="https://www.facebook.com/lagriferiapr" target="_blank" rel="noopener" class="social-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+        <a href="https://www.instagram.com/lagriferiapr" target="_blank" rel="noopener" class="social-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Instagram
+        </a>
+        <a href="https://wa.me/17872140373" target="_blank" rel="noopener" class="social-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="visita-map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3779.6!2d-67.1575!3d18.4274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c0299f!2sLa+Griferia!5e0!3m2!1ses!2spr!4v1"
+        allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Ubicación La Grifería">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-brand">La <span>Grifería</span></div>
+    <p class="footer-copy">© 2025 La Grifería · Aguadilla, Puerto Rico</p>
+    <div class="footer-links">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#menu">Menú</a>
+      <a href="#visita">Contacto</a>
+    </div>
+  </footer>
+
+  <script>
+    // ── Nav scroll ──────────────────────────────────────
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ── Hero bg transition ──────────────────────────────
+    window.addEventListener('load', () => {
+      document.getElementById('heroBg').classList.add('loaded');
+    });
+
+    // ── Hamburger ───────────────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMobile() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ── Reveal on scroll ────────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Menu filter ─────────────────────────────────────
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const menuCards  = document.querySelectorAll('.menu-card');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        menuCards.forEach(card => {
+          const show = filter === 'all' || card.dataset.cat === filter;
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
