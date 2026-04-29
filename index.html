@@ -384,11 +384,7 @@
       font-size: 1.15rem; font-weight: 700; color: var(--cream);
       margin-bottom: 0.2rem;
     }
-    .menu-price {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem; color: var(--yellow);
-      letter-spacing: 0.05em; margin-bottom: 0.4rem;
-    }
+    .menu-price { display: none; }
     .menu-card-desc {
       font-size: 0.75rem; line-height: 1.5;
       color: rgba(250,247,242,0.45);
@@ -404,11 +400,11 @@
       position: relative; overflow: hidden;
     }
     .menu-card.no-photo::after {
-      content: attr(data-price);
-      position: absolute; bottom: -0.5rem; right: 1rem;
+      content: '—';
+      position: absolute; bottom: 1rem; right: 1.5rem;
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 5.5rem; line-height: 1;
-      color: rgba(244,197,66,0.055);
+      font-size: 3rem; line-height: 1;
+      color: rgba(244,197,66,0.08);
       pointer-events: none; user-select: none;
     }
     .menu-card.no-photo .menu-card-body {
@@ -881,7 +877,7 @@
         <div class="menu-card-body">
           <p class="menu-card-category">Platos</p>
           <h3 class="menu-card-name">Pad Thai</h3>
-          <p class="menu-price">$11 <small style="font-size:0.7rem;opacity:0.6">veggie</small> &nbsp; $19 <small style="font-size:0.7rem;opacity:0.6">pollo/cerdo</small> &nbsp; $22 <small style="font-size:0.7rem;opacity:0.6">camarones</small></p>
+          <p class="menu-card-desc">Veggie · Pollo · Cerdo · Camarones</p>
         </div>
       </div>
 
@@ -889,7 +885,7 @@
         <div class="menu-card-body">
           <p class="menu-card-category">Platos</p>
           <h3 class="menu-card-name">Arroz Frito</h3>
-          <p class="menu-price">$9 <small style="font-size:0.7rem;opacity:0.6">veggie</small> &nbsp; $17 <small style="font-size:0.7rem;opacity:0.6">pollo/cerdo</small> &nbsp; $19 <small style="font-size:0.7rem;opacity:0.6">camarones</small></p>
+          <p class="menu-card-desc">Veggie · Pollo · Cerdo · Camarones</p>
         </div>
       </div>
 
