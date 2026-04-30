@@ -1201,11 +1201,23 @@
       }
 
       if (Hls.isSupported()) {
-        const hls = new Hls({ lowLatencyMode: true, maxBufferLength: 10 });
-        hls.loadSource(HLS_URL);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function () { video.play(); });
+        let hls;
+        function initHls() {
+          if (hls) hls.destroy();
+          hls = new Hls({ lowLatencyMode: true, maxBufferLength: 10 });
+          hls.loadSource(HLS_URL);
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, function () { video.play(); });
+          hls.on(Hls.Events.ERROR, function (e, data) {
+            if (data.fatal) {
+              overlay.textContent = "Reconectando…";
+              overlay.classList.remove("hidden");
+              setTimeout(initHls, 5000);
+            }
+          });
+        }
         video.addEventListener("playing", hideOverlay);
+        initHls();
       } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
         video.src = HLS_URL;
         video.addEventListener("playing", hideOverlay);
