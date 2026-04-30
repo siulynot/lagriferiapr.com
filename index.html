@@ -607,7 +607,16 @@
       pointer-events: none;
       transition: opacity 0.5s;
     }
-    .live-overlay.hidden { opacity: 0; }
+    .live-overlay.hidden { opacity: 0; pointer-events: none; }
+    #live-overlay-inner { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    #live-play-btn {
+      background: var(--yellow); color: var(--navy);
+      border: none; border-radius: 4px; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      font-weight: 700; letter-spacing: 0.08em;
+      padding: 0.7rem 1.8rem; transition: transform 0.2s;
+    }
+    #live-play-btn:hover { transform: scale(1.04); }
     .live-caption {
       text-align: center;
       margin-top: 1rem;
@@ -1056,8 +1065,13 @@
       <h2 class="section-title">La Vista<br><em>Ahora Mismo</em></h2>
     </div>
     <div class="live-wrap reveal reveal-delay-1">
-      <video id="cam-stream" autoplay muted playsinline></video>
-      <div class="live-overlay" id="live-overlay">Cargando transmisión…</div>
+      <video id="cam-stream" muted playsinline></video>
+      <div class="live-overlay" id="live-overlay">
+        <div id="live-overlay-inner">
+          <span id="live-overlay-text">Cargando transmisión…</span>
+          <button id="live-play-btn" style="display:none;" onclick="window._hlsPlay()">▶ Ver en vivo</button>
+        </div>
+      </div>
     </div>
     <p class="live-caption reveal reveal-delay-2">Cámara en vivo · Paseo Real Marina · Aguadilla, PR</p>
   </section>
@@ -1192,38 +1206,51 @@
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
   <script>
     (function () {
-      const HLS_URL  = "https://cam.lagriferiapr.com/hls/camera/index.m3u8";
-      const video    = document.getElementById("cam-stream");
-      const overlay  = document.getElementById("live-overlay");
+      const HLS_URL   = "https://cam.lagriferiapr.com/hls/camera/index.m3u8";
+      const video     = document.getElementById("cam-stream");
+      const overlay   = document.getElementById("live-overlay");
+      const overlayTx = document.getElementById("live-overlay-text");
+      const playBtn   = document.getElementById("live-play-btn");
+      let hls;
 
-      function hideOverlay() {
-        overlay.classList.add("hidden");
+      function hideOverlay() { overlay.classList.add("hidden"); }
+
+      function showPlayBtn() {
+        overlayTx.textContent = "El stream está listo";
+        playBtn.style.display = "inline-block";
+      }
+
+      function tryPlay() {
+        video.play().then(hideOverlay).catch(showPlayBtn);
+      }
+
+      window._hlsPlay = function () {
+        video.play().then(hideOverlay);
+      };
+
+      function initHls() {
+        if (hls) hls.destroy();
+        hls = new Hls({ lowLatencyMode: true, maxBufferLength: 10 });
+        hls.loadSource(HLS_URL);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, tryPlay);
+        hls.on(Hls.Events.ERROR, function (_, data) {
+          if (data.fatal) {
+            overlay.classList.remove("hidden");
+            playBtn.style.display = "none";
+            overlayTx.textContent = "Reconectando…";
+            setTimeout(initHls, 5000);
+          }
+        });
       }
 
       if (Hls.isSupported()) {
-        let hls;
-        function initHls() {
-          if (hls) hls.destroy();
-          hls = new Hls({ lowLatencyMode: true, maxBufferLength: 10 });
-          hls.loadSource(HLS_URL);
-          hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, function () { video.play(); });
-          hls.on(Hls.Events.ERROR, function (e, data) {
-            if (data.fatal) {
-              overlay.textContent = "Reconectando…";
-              overlay.classList.remove("hidden");
-              setTimeout(initHls, 5000);
-            }
-          });
-        }
-        video.addEventListener("playing", hideOverlay);
         initHls();
       } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
         video.src = HLS_URL;
-        video.addEventListener("playing", hideOverlay);
-        video.play();
+        video.addEventListener("loadedmetadata", tryPlay);
       } else {
-        overlay.textContent = "Tu navegador no soporta este stream.";
+        overlayTx.textContent = "Tu navegador no soporta este stream.";
       }
     })();
   </script>
