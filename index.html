@@ -1065,13 +1065,7 @@
       <h2 class="section-title">La Vista<br><em>Ahora Mismo</em></h2>
     </div>
     <div class="live-wrap reveal reveal-delay-1">
-      <video id="cam-stream" muted playsinline></video>
-      <div class="live-overlay" id="live-overlay">
-        <div id="live-overlay-inner">
-          <span id="live-overlay-text">Cargando transmisión…</span>
-          <button id="live-play-btn" style="display:none;" onclick="window._hlsPlay()">▶ Ver en vivo</button>
-        </div>
-      </div>
+      <iframe src="https://cam.lagriferiapr.com/" allowfullscreen allow="autoplay" loading="lazy" title="La Grifería — cámara en vivo" style="width:100%;height:100%;border:none;display:block;"></iframe>
     </div>
     <p class="live-caption reveal reveal-delay-2">Cámara en vivo · Paseo Real Marina · Aguadilla, PR</p>
   </section>
@@ -1202,57 +1196,5 @@
     });
   </script>
 
-  <!-- ── HLS STREAM ── -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
-  <script>
-    (function () {
-      const HLS_URL   = "https://cam.lagriferiapr.com/hls/camera/index.m3u8";
-      const video     = document.getElementById("cam-stream");
-      const overlay   = document.getElementById("live-overlay");
-      const overlayTx = document.getElementById("live-overlay-text");
-      const playBtn   = document.getElementById("live-play-btn");
-      let hls;
-
-      function hideOverlay() { overlay.classList.add("hidden"); }
-
-      function showPlayBtn() {
-        overlayTx.textContent = "El stream está listo";
-        playBtn.style.display = "inline-block";
-      }
-
-      function tryPlay() {
-        video.play().then(hideOverlay).catch(showPlayBtn);
-      }
-
-      window._hlsPlay = function () {
-        video.play().then(hideOverlay);
-      };
-
-      function initHls() {
-        if (hls) hls.destroy();
-        hls = new Hls({ lowLatencyMode: true, maxBufferLength: 10 });
-        hls.loadSource(HLS_URL);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, tryPlay);
-        hls.on(Hls.Events.ERROR, function (_, data) {
-          if (data.fatal) {
-            overlay.classList.remove("hidden");
-            playBtn.style.display = "none";
-            overlayTx.textContent = "Reconectando…";
-            setTimeout(initHls, 5000);
-          }
-        });
-      }
-
-      if (Hls.isSupported()) {
-        initHls();
-      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-        video.src = HLS_URL;
-        video.addEventListener("loadedmetadata", tryPlay);
-      } else {
-        overlayTx.textContent = "Tu navegador no soporta este stream.";
-      }
-    })();
-  </script>
 </body>
 </html>
