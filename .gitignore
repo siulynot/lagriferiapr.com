@@ -1,2 +1,6 @@
 .DS_Store
 **/.DS_Store
+
+# Sony RAW files — not needed for web
+**/*.ARW
+**/*.arw
