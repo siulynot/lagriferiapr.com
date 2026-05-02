@@ -4,3 +4,9 @@
 # Sony RAW files — not needed for web
 **/*.ARW
 **/*.arw
+
+# Large design source files
+**/*.psd
+**/*.ai
+**/*.eps
+**/*.zip
