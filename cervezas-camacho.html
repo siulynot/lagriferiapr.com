@@ -63,9 +63,15 @@
     .col {
       padding: 0 2.2vw;
       overflow: hidden;
+      position: relative;
     }
     .col:first-child { padding-left: 0; }
     .col:last-child  { padding-right: 0; }
+
+    .col-inner {
+      transform-origin: top left;
+      width: 100%;
+    }
 
     /* ── SECTION HEADER ──────────────────────────────── */
     .sec-title {
@@ -183,6 +189,7 @@
 
     <!-- LEFT: DEL GRIFO -->
     <div class="col">
+     <div class="col-inner">
       <div class="sec-title">Del Grifo</div>
       <div class="sec-rule"></div>
 
@@ -257,6 +264,7 @@
         </div>
         <span class="item-price">$7</span>
       </div>
+     </div><!-- /col-inner -->
     </div>
 
     <!-- CENTER: LOGO -->
@@ -271,7 +279,7 @@
 
     <!-- RIGHT: TRAGOS + LATAS -->
     <div class="col">
-
+     <div class="col-inner">
       <div class="sec-title">Tragos</div>
       <div class="sec-rule"></div>
 
@@ -364,10 +372,37 @@
         </div>
         <span class="item-price">$9</span>
       </div>
-
+     </div><!-- /col-inner -->
     </div>
 
   </div>
+
+  <script>
+    function fitColumns() {
+      document.querySelectorAll('.col').forEach(col => {
+        const inner = col.querySelector('.col-inner');
+        if (!inner) return;
+
+        // Reset any previous scaling
+        inner.style.transform = '';
+        inner.style.width = '100%';
+
+        const availH = col.clientHeight;
+        const contentH = inner.scrollHeight;
+
+        if (contentH > availH) {
+          const scale = (availH / contentH) * 0.99; // tiny buffer
+          inner.style.transform = `scale(${scale})`;
+          // Compensate width so text fills the column after scaling
+          inner.style.width = `${100 / scale}%`;
+        }
+      });
+    }
+
+    // Run after fonts are loaded (Google Fonts change text metrics)
+    document.fonts.ready.then(fitColumns);
+    window.addEventListener('resize', fitColumns);
+  </script>
 
 </body>
 </html>
