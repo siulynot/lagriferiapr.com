@@ -229,27 +229,11 @@
        hamburguesa y la lista de toppings.
     */
 
-    /* El wordmark de Chilea. Va tipográfico porque no hay archivo del logo;
-       cuando exista, se sustituye este bloque por un <img class="logo-img">. */
-    .chilea {
-      text-align: center;
-      line-height: 1;
-    }
-    .chilea-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3.4vw;
-      letter-spacing: 0.06em;
-      color: var(--yellow);
-      /* Un halo tenue: evoca el neón del rótulo sin imitarlo mal. */
-      text-shadow: 0 0 1.4vh rgba(244,197,66,0.35);
-    }
-    .chilea-sub {
-      font-size: 0.8vw;
-      letter-spacing: 0.34em;
-      text-transform: uppercase;
-      color: var(--mist);
-      margin-top: 0.5vh;
-    }
+    /* El logo de Chilea va algo mayor que el de La Grifería: en esta lámina
+       es el protagonista, no una firma. Se extrajo del PDF del rótulo y se le
+       quitó el fondo negro — sobre el azul del menú, el neón se lee mejor que
+       sobre su negro original. */
+    .logo-chilea { width: 13vw; }
 
     /* Los añadidos de la hamburguesa: modifican al plato de arriba, así que
        van pegados a él y en una tira, no como renglones sueltos que compiten
@@ -546,10 +530,7 @@
 
     <!-- CENTER: CHILEA -->
     <div class="center">
-      <div class="chilea">
-        <div class="chilea-name">Chilea</div>
-        <div class="chilea-sub">Burger Lab</div>
-      </div>
+      <img class="logo-img logo-chilea" src="media/chilea-logo.png" alt="Chilea Burger Lab">
       <div class="tagline-comida">Carne, queso,<br>cebollas &amp;<br>Chilea Sauce</div>
       <div class="site">www.lagriferiapr.com</div>
     </div>
