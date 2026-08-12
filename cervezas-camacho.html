@@ -52,6 +52,49 @@
       color: var(--mist);
     }
 
+    /* ── CARRUSEL ────────────────────────────────────── */
+    /*
+       Esto es un menú de PANTALLA, no una página web: viewport fijo, sin
+       scroll, colgado de un televisor. Por eso el menú de comida no va debajo
+       —nadie hace scroll en un TV— sino en una lámina que rota sola.
+
+       Las láminas se apilan con position:absolute y se cruzan con opacidad. Se
+       usa `visibility` y no `display:none` a propósito: una lámina oculta con
+       display:none no tiene altura, y `fitColumns()` mide alturas para
+       escalar el contenido. Oculta pero maquetada, la medida sale bien desde
+       el primer momento y no hay salto la primera vez que aparece.
+    */
+    .stage { position: relative; height: 91vh; }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.9s ease-in-out;
+    }
+    .slide.on { opacity: 1; visibility: visible; }
+
+    /* Puntos: dicen que hay más que ver. Sin ellos, quien mire dos segundos
+       cree que el menú es solo lo que tiene delante. */
+    .dots {
+      position: absolute;
+      bottom: 1.1vh;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.6vw;
+      z-index: 5;
+    }
+    .dot {
+      width: 0.55vw;
+      height: 0.55vw;
+      border-radius: 50%;
+      background: rgba(250,247,242,0.22);
+      transition: background 0.4s;
+    }
+    .dot.on { background: var(--yellow); }
+
     /* ── MAIN GRID ───────────────────────────────────── */
     .grid {
       display: grid;
@@ -177,6 +220,87 @@
       color: var(--mist);
       text-align: center;
     }
+
+    /* ── LÁMINA DE COMIDA ────────────────────────────── */
+    /*
+       Reusa .item, .sec-title y .item-price para que las dos láminas se lean
+       como el mismo menú y no como dos sitios distintos pegados. Lo único
+       propio es lo que la comida necesita y la bebida no: los añadidos de la
+       hamburguesa y la lista de toppings.
+    */
+
+    /* El wordmark de Chilea. Va tipográfico porque no hay archivo del logo;
+       cuando exista, se sustituye este bloque por un <img class="logo-img">. */
+    .chilea {
+      text-align: center;
+      line-height: 1;
+    }
+    .chilea-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.4vw;
+      letter-spacing: 0.06em;
+      color: var(--yellow);
+      /* Un halo tenue: evoca el neón del rótulo sin imitarlo mal. */
+      text-shadow: 0 0 1.4vh rgba(244,197,66,0.35);
+    }
+    .chilea-sub {
+      font-size: 0.8vw;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-top: 0.5vh;
+    }
+
+    /* Los añadidos de la hamburguesa: modifican al plato de arriba, así que
+       van pegados a él y en una tira, no como renglones sueltos que compiten
+       con los platos. */
+    .addons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5vh 1.4vw;
+      padding: 0.9vh 0 0.2vh;
+    }
+    .addon {
+      font-size: 1.15vw;
+      color: var(--cream);
+      white-space: nowrap;
+    }
+    .addon b {
+      font-weight: 600;
+      color: var(--yellow);
+      margin-left: 0.25vw;
+    }
+    .addon-note {
+      width: 100%;
+      font-size: 0.92vw;
+      font-weight: 300;
+      color: var(--mist);
+    }
+
+    /* Toppings: precios chicos, lista densa. Dos columnas para no estirar
+       cuatro renglones por media pantalla. */
+    .toppings {
+      column-count: 2;
+      column-gap: 2vw;
+      padding-top: 0.6vh;
+    }
+    .topping {
+      display: flex;
+      justify-content: space-between;
+      gap: 1vw;
+      padding: 0.5vh 0;
+      font-size: 1.25vw;
+      break-inside: avoid;
+      border-bottom: 1px solid rgba(250,247,242,0.07);
+    }
+    .topping span:last-child { color: var(--yellow); font-weight: 600; }
+
+    .tagline-comida {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35vw;
+      color: var(--mist);
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -186,6 +310,10 @@
     <div class="tagline">Paseo Real Marina · Aguadilla, Puerto Rico</div>
   </div>
 
+  <div class="stage">
+
+  <!-- ══════════ LÁMINA 1 · BEBIDAS ══════════ -->
+  <div class="slide on">
   <div class="grid">
 
     <!-- LEFT: DEL GRIFO -->
@@ -355,6 +483,119 @@
     </div>
 
   </div>
+  </div><!-- /slide bebidas -->
+
+  <!-- ══════════ LÁMINA 2 · COMIDA · CHILEA BURGER LAB ══════════
+       Se enciende o se apaga desde menu-config.js, sin tocar este archivo.
+       Nace oculta: si el script no cargara por lo que sea, la pantalla se
+       queda con el menú de bebidas —que siempre es cierto— en vez de anunciar
+       una cocina que hoy quizá no abrió. -->
+  <div class="slide" id="lamina-comida" hidden>
+  <div class="grid">
+
+    <!-- LEFT: SMASH BURGERS -->
+    <div class="col">
+     <div class="col-inner">
+      <div class="sec-title">Smash Burgers</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Sencillo</div>
+          <div class="item-desc">Carne, queso, cebollas &amp; Chilea Sauce</div>
+        </div>
+        <span class="item-price">$9</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Doble</div>
+          <div class="item-desc">Doble carne, queso, cebollas &amp; Chilea Sauce</div>
+        </div>
+        <span class="item-price">$12</span>
+      </div>
+
+      <div class="addons">
+        <span class="addon">+ With Fries <b>$3</b></span>
+        <span class="addon">+ Loaded <b>$3</b></span>
+        <span class="addon">+ Bacon <b>$2</b></span>
+        <span class="addon">+ Pan Mallorca <b>$2</b></span>
+        <span class="addon-note">Loaded: queso · bacon · cebolla · Chilea Sauce</span>
+      </div>
+
+      <div class="sec-title sec-gap">De la Cocina</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Chilea Fries Lab</div>
+          <div class="item-desc">Smash · bacon · queso · cebolla · salsa Chilea</div>
+        </div>
+        <span class="item-price">$10</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Dumplings de Pollo</div>
+          <div class="item-desc">Sweet Chili</div>
+        </div>
+        <span class="item-price">$8</span>
+      </div>
+     </div><!-- /col-inner -->
+    </div>
+
+    <!-- CENTER: CHILEA -->
+    <div class="center">
+      <div class="chilea">
+        <div class="chilea-name">Chilea</div>
+        <div class="chilea-sub">Burger Lab</div>
+      </div>
+      <div class="tagline-comida">Carne, queso,<br>cebollas &amp;<br>Chilea Sauce</div>
+      <div class="site">www.lagriferiapr.com</div>
+    </div>
+
+    <!-- RIGHT: ALITAS + TOPPINGS -->
+    <div class="col">
+     <div class="col-inner">
+      <div class="sec-title">Alitas</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Media docena</div>
+          <div class="item-desc">BBQ · Ranch</div>
+        </div>
+        <span class="item-price">$12</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Docena</div>
+          <div class="item-desc">BBQ · Ranch</div>
+        </div>
+        <span class="item-price">$22</span>
+      </div>
+
+      <div class="sec-title sec-gap">Add Toppings</div>
+      <div class="sec-rule"></div>
+
+      <div class="toppings">
+        <div class="topping"><span>Lechuga</span><span>$0.50</span></div>
+        <div class="topping"><span>Tomate</span><span>$0.50</span></div>
+        <div class="topping"><span>Pepinillos</span><span>$0.50</span></div>
+        <div class="topping"><span>Bacon</span><span>$2.50</span></div>
+      </div>
+     </div><!-- /col-inner -->
+    </div>
+
+  </div>
+  </div><!-- /slide comida -->
+
+  </div><!-- /stage -->
+
+  <div class="dots" id="puntos"></div>
+
+  <script src="menu-config.js"></script>
 
   <script>
     function fitColumns() {
@@ -381,6 +622,58 @@
     // Run after fonts are loaded (Google Fonts change text metrics)
     document.fonts.ready.then(fitColumns);
     window.addEventListener('resize', fitColumns);
+
+    /* ── Rotación de láminas ──────────────────────────────────────────────
+       Doce segundos por lámina: lo que tarda alguien en leer una columna de
+       precios de pie en una barra. Menos, y se pierde a mitad; más, y quien
+       llegó buscando comida cree que solo hay cerveza.
+
+       Se para si hay una sola lámina — así añadir o quitar una es editar HTML
+       y nada más, sin tocar este script. */
+    (function carrusel() {
+      // El interruptor manda. Sin comida, la lámina se saca del DOM: no basta
+      // con ocultarla, porque una lámina oculta pero presente seguiría
+      // entrando en la rotación si alguien toca este código más adelante.
+      if (window.HAY_COMIDA !== true) {
+        const comida = document.getElementById('lamina-comida');
+        if (comida) comida.remove();
+      } else {
+        const comida = document.getElementById('lamina-comida');
+        if (comida) comida.hidden = false;
+      }
+
+      const laminas = Array.from(document.querySelectorAll('.slide'));
+
+      // Un punto por lámina, y ninguno si solo hay una: dos puntos cuando no
+      // hay nada que rotar es una promesa que la pantalla no cumple.
+      const cont = document.getElementById('puntos');
+      if (cont && laminas.length > 1) {
+        laminas.forEach((_, n) => {
+          const d = document.createElement('div');
+          d.className = n === 0 ? 'dot on' : 'dot';
+          cont.appendChild(d);
+        });
+      }
+      const puntos = Array.from(document.querySelectorAll('.dot'));
+
+      if (laminas.length < 2) return;
+
+      let i = 0;
+      setInterval(() => {
+        laminas[i].classList.remove('on');
+        if (puntos[i]) puntos[i].classList.remove('on');
+
+        i = (i + 1) % laminas.length;
+
+        laminas[i].classList.add('on');
+        if (puntos[i]) puntos[i].classList.add('on');
+
+        // La lámina que entra se remide: si el televisor cambió de tamaño o
+        // una fuente cargó tarde, el escalado de esa lámina puede haber
+        // quedado viejo. Es barato y evita texto desbordado en pantalla.
+        fitColumns();
+      }, (window.SEGUNDOS_POR_LAMINA || 12) * 1000);
+    })();
   </script>
 
 </body>
