@@ -191,8 +191,14 @@
       border-right: 1px solid rgba(244,197,66,0.2);
     }
 
+    /* Los dos logos comparten ancho y se dibujan del mismo tamaño porque sus
+       archivos tienen la MISMA relación logo/caja (~95%). Eso no era gratis:
+       el original de La Grifería traía 76% de aire transparente alrededor, así
+       que al mismo ancho CSS se dibujaba a la mitad que el de Chilea. Se
+       recortó a `logo-griferia-ajustado.png` en vez de compensarlo subiendo el
+       ancho, que habría necesitado ~24vw y no cabe en una columna de 13.5vw. */
     .logo-img {
-      width: 11.5vw;
+      width: 13vw;
       height: auto;
     }
 
@@ -228,12 +234,6 @@
        propio es lo que la comida necesita y la bebida no: los añadidos de la
        hamburguesa y la lista de toppings.
     */
-
-    /* El logo de Chilea va algo mayor que el de La Grifería: en esta lámina
-       es el protagonista, no una firma. Se extrajo del PDF del rótulo y se le
-       quitó el fondo negro — sobre el azul del menú, el neón se lee mejor que
-       sobre su negro original. */
-    .logo-chilea { width: 13vw; }
 
     /* Los añadidos de la hamburguesa: modifican al plato de arriba, así que
        van pegados a él y en una tira, no como renglones sueltos que compiten
@@ -393,7 +393,7 @@
 
     <!-- CENTER: LOGO -->
     <div class="center">
-      <img class="logo-img" src="media/logoblancoamarillo.png" alt="La Grifería">
+      <img class="logo-img" src="media/logo-griferia-ajustado.png" alt="La Grifería">
       <div class="upsell">
         <div class="upsell-label">Pide en 16oz</div>
         <div class="upsell-value">+$2</div>
@@ -530,7 +530,7 @@
 
     <!-- CENTER: CHILEA -->
     <div class="center">
-      <img class="logo-img logo-chilea" src="media/chilea-logo.png" alt="Chilea Burger Lab">
+      <img class="logo-img" src="media/chilea-logo.png" alt="Chilea Burger Lab">
       <div class="tagline-comida">Carne, queso,<br>cebollas &amp;<br>Chilea Sauce</div>
       <div class="site">www.lagriferiapr.com</div>
     </div>
