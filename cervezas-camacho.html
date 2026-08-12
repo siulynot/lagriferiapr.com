@@ -261,23 +261,22 @@
       color: var(--mist);
     }
 
-    /* Toppings: precios chicos, lista densa. Dos columnas para no estirar
-       cuatro renglones por media pantalla. */
-    .toppings {
-      column-count: 2;
-      column-gap: 2vw;
-      padding-top: 0.6vh;
-    }
-    .topping {
-      display: flex;
-      justify-content: space-between;
-      gap: 1vw;
-      padding: 0.5vh 0;
-      font-size: 1.25vw;
-      break-inside: avoid;
-      border-bottom: 1px solid rgba(250,247,242,0.07);
-    }
-    .topping span:last-child { color: var(--yellow); font-weight: 600; }
+    /* ── PESO DE LA COLUMNA DE HAMBURGUESAS ──────────────
+       La derecha lleva cuatro platos bajo dos títulos; la izquierda solo dos
+       hamburguesas. Con el mismo tamaño, la izquierda queda a media altura y
+       la lámina se ve coja.
+
+       En vez de rellenar con texto que nadie pidió, las hamburguesas ocupan
+       el espacio que les toca: son el plato principal de la carta y merecen
+       leerse desde más lejos. `fitColumns()` reduce si se pasa, así que
+       agrandar aquí no puede desbordar. */
+    .col-burgers .item        { padding: 2vh 0; }
+    .col-burgers .item-name   { font-size: 2.7vw; }
+    .col-burgers .item-price  { font-size: 2.7vw; }
+    .col-burgers .item-desc   { font-size: 1.35vw; margin-top: 0.5vh; }
+    .col-burgers .addons      { padding-top: 2vh; gap: 1vh 1.6vw; }
+    .col-burgers .addon       { font-size: 1.4vw; }
+    .col-burgers .addon-note  { font-size: 1.05vw; padding-top: 0.4vh; }
 
     .tagline-comida {
       font-family: 'Playfair Display', serif;
@@ -479,7 +478,7 @@
 
     <!-- LEFT: SMASH BURGERS -->
     <div class="col">
-     <div class="col-inner">
+     <div class="col-inner col-burgers">
       <div class="sec-title">Smash Burgers</div>
       <div class="sec-rule"></div>
 
@@ -504,27 +503,10 @@
         <span class="addon">+ Loaded <b>$3</b></span>
         <span class="addon">+ Bacon <b>$2</b></span>
         <span class="addon">+ Pan Mallorca <b>$2</b></span>
+        <span class="addon">+ Ensalada <b>$1</b></span>
         <span class="addon-note">Loaded: queso · bacon · cebolla · Chilea Sauce</span>
       </div>
 
-      <div class="sec-title sec-gap">De la Cocina</div>
-      <div class="sec-rule"></div>
-
-      <div class="item">
-        <div class="item-info">
-          <div class="item-name">Chilea Fries Lab</div>
-          <div class="item-desc">Smash · bacon · queso · cebolla · salsa Chilea</div>
-        </div>
-        <span class="item-price">$10</span>
-      </div>
-
-      <div class="item">
-        <div class="item-info">
-          <div class="item-name">Dumplings de Pollo</div>
-          <div class="item-desc">Sweet Chili</div>
-        </div>
-        <span class="item-price">$8</span>
-      </div>
      </div><!-- /col-inner -->
     </div>
 
@@ -557,14 +539,23 @@
         <span class="item-price">$22</span>
       </div>
 
-      <div class="sec-title sec-gap">Add Toppings</div>
+      <div class="sec-title sec-gap">De la Cocina</div>
       <div class="sec-rule"></div>
 
-      <div class="toppings">
-        <div class="topping"><span>Lechuga</span><span>$0.50</span></div>
-        <div class="topping"><span>Tomate</span><span>$0.50</span></div>
-        <div class="topping"><span>Pepinillos</span><span>$0.50</span></div>
-        <div class="topping"><span>Bacon</span><span>$2.50</span></div>
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Chilea Fries Lab</div>
+          <div class="item-desc">Smash · bacon · queso · cebolla · salsa Chilea</div>
+        </div>
+        <span class="item-price">$10</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Dumplings de Pollo</div>
+          <div class="item-desc">Sweet Chili</div>
+        </div>
+        <span class="item-price">$8</span>
       </div>
      </div><!-- /col-inner -->
     </div>
@@ -594,23 +585,52 @@
   </script>
 
   <script>
+    /* Ajusta cada columna a la altura disponible.
+     *
+     * Antes solo ENCOGÍA. Con una carta corta —la de comida son dos platos por
+     * lado— eso dejaba el 40% inferior del televisor en azul vacío y el menú
+     * se leía chico y descolgado hacia arriba.
+     *
+     * Agrandar no es el mismo cálculo al revés, y ahí estuvo la trampa. Para
+     * que el texto llene la columna después de escalar, el ancho se compensa
+     * con `width: 100/escala`. Al ENCOGER eso ensancha la caja, el texto
+     * envuelve menos y sobra sitio: el error va hacia el lado seguro. Al
+     * AGRANDAR la estrecha, el texto envuelve MÁS y crece de alto — así que
+     * una sola medición previa se queda corta y el contenido se sale por abajo.
+     *
+     * Por eso se prueba de verdad: se empieza por el tope y se baja hasta que
+     * de hecho quepa, midiendo en cada paso con el ancho ya aplicado. Son unas
+     * decenas de iteraciones en una página que se dibuja una vez cada cinco
+     * minutos; el costo no se nota y la garantía es que nunca se corta.
+     */
+    const TOPE_AGRANDAR = 1.6;
+    const PISO = 0.25;
+    const PASO = 0.02;
+
     function fitColumns() {
       document.querySelectorAll('.col').forEach(col => {
         const inner = col.querySelector('.col-inner');
         if (!inner) return;
 
-        // Reset any previous scaling
         inner.style.transform = '';
         inner.style.width = '100%';
 
         const availH = col.clientHeight;
-        const contentH = inner.scrollHeight;
+        if (!availH || !inner.scrollHeight) return;
 
-        if (contentH > availH) {
-          const scale = (availH / contentH) * 0.99; // tiny buffer
-          inner.style.transform = `scale(${scale})`;
-          // Compensate width so text fills the column after scaling
-          inner.style.width = `${100 / scale}%`;
+        let escala = TOPE_AGRANDAR;
+        inner.style.width = `${100 / escala}%`;
+
+        while (escala > PISO && inner.scrollHeight * escala > availH) {
+          escala -= PASO;
+          inner.style.width = `${100 / escala}%`;
+        }
+
+        if (Math.abs(escala - 1) < 0.01) {
+          inner.style.transform = '';
+          inner.style.width = '100%';
+        } else {
+          inner.style.transform = `scale(${escala})`;
         }
       });
     }
