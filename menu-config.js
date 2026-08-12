@@ -9,9 +9,12 @@
    PARA APAGARLA:  cambia `true` por `false` en la línea de abajo.
    PARA ENCENDERLA: al revés.
 
-   Guarda el cambio y ya. La pantalla se recarga sola cada 5 minutos, así que
-   el televisor se entera sin que nadie lo toque. No hace falta reiniciar nada
-   ni entrar al local.
+   Guarda el cambio y ya. La pantalla se recarga sola cada 5 minutos y pide
+   este archivo sin pasar por su caché, así que el televisor se entera solo en
+   ese plazo. No hace falta reiniciar nada ni entrar al local.
+
+   Si necesitas que sea AHORA MISMO, recarga la página en el televisor
+   (Ctrl+Shift+R o Cmd+Shift+R).
 
    Si se edita desde el teléfono por GitHub, es la única palabra que hay que
    cambiar en todo el archivo.

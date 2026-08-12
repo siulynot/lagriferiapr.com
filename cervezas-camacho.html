@@ -576,7 +576,22 @@
 
   <div class="dots" id="puntos"></div>
 
-  <script src="menu-config.js"></script>
+  <!-- El interruptor se pide SIEMPRE fresco.
+
+       GitHub Pages sirve todo con `cache-control: max-age=600` — diez minutos
+       — pero esta página se recarga cada cinco. Sin esto, el televisor recarga
+       y vuelve a leer de su caché el config VIEJO: apagar la comida podía
+       tardar un cuarto de hora en verse, o no verse.
+
+       La marca de tiempo se calcula al cargar la página, así que sirve aunque
+       el propio HTML venga de caché. Se usa document.write porque tiene que
+       ser síncrono: el carrusel de más abajo lee window.HAY_COMIDA y no puede
+       arrancar antes de que exista. -->
+  <script>
+    document.write(
+      '<scr' + 'ipt src="menu-config.js?t=' + Date.now() + '"><\/scr' + 'ipt>'
+    );
+  </script>
 
   <script>
     function fitColumns() {
