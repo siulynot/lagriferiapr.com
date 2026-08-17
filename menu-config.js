@@ -20,7 +20,7 @@
    cambiar en todo el archivo.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-window.HAY_COMIDA = false;
+window.HAY_COMIDA = true;
 
 /* ───────────────────────────────────────────────────────────────────────────
    Cuántos segundos se queda cada lámina antes de pasar a la siguiente.
@@ -30,4 +30,4 @@ window.HAY_COMIDA = false;
    cree que solo hay cerveza.
    ─────────────────────────────────────────────────────────────────────────── */
 
-window.SEGUNDOS_POR_LAMINA = 12;
+window.SEGUNDOS_POR_LAMINA = 20;
