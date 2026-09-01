@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1123">
-  <meta http-equiv="refresh" content="300">
+
+  <!-- Red de seguridad, no el mecanismo principal.
+
+       Quien de verdad mantiene la pantalla al día es el vigilante del final
+       del archivo: mira el interruptor cada 45 segundos y recarga sin caché
+       en cuanto cambia. Esto de aquí solo existe por si ese script muriera
+       —una excepción, JavaScript apagado en el televisor, una actualización
+       rara del navegador—: media hora es suficiente para que la pantalla no
+       se quede congelada para siempre, y bastante espaciado como para no
+       estorbar al vigilante, que reacciona mucho antes. -->
+  <meta http-equiv="refresh" content="1800">
   <title>Cervezas — La Grifería</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
@@ -469,11 +479,17 @@
   </div><!-- /slide bebidas -->
 
   <!-- ══════════ LÁMINA 2 · COMIDA · CHILEA BURGER LAB ══════════
-       Se enciende o se apaga desde menu-config.js, sin tocar este archivo.
+       Se enciende desde menu-config.js poniendo HAY_COMIDA = 'chilea'.
        Nace oculta: si el script no cargara por lo que sea, la pantalla se
        queda con el menú de bebidas —que siempre es cierto— en vez de anunciar
-       una cocina que hoy quizá no abrió. -->
-  <div class="slide" id="lamina-comida" hidden>
+       una cocina que hoy quizá no abrió.
+
+       Cada popup es una lámina con su propio id, y el interruptor escoge cuál
+       vive. Se hizo así en vez de un solo bloque con el contenido cambiado
+       porque los menús no se parecen: Chilea vende hamburguesas con añadidos
+       y alitas; La Chona, tres burgers y tots. Meterlos en la misma plantilla
+       obligaría a que uno de los dos se vea forzado. -->
+  <div class="slide popup-comida" id="lamina-chilea" hidden>
   <div class="grid">
 
     <!-- LEFT: SMASH BURGERS -->
@@ -561,7 +577,78 @@
     </div>
 
   </div>
-  </div><!-- /slide comida -->
+  </div><!-- /slide comida · Chilea -->
+
+  <!-- ══════════ LÁMINA 2b · COMIDA · LA CHONA ══════════
+       Se enciende con HAY_COMIDA = 'chona'. Ver la nota de la lámina de
+       Chilea: solo una de las dos entra en la rotación. -->
+  <div class="slide popup-comida" id="lamina-chona" hidden>
+  <div class="grid">
+
+    <!-- LEFT: BURGERS -->
+    <div class="col">
+     <div class="col-inner col-burgers">
+      <div class="sec-title">Burgers</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">All American</div>
+        </div>
+        <span class="item-price">$14.50</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">La Chona</div>
+        </div>
+        <span class="item-price">$15.50</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Drip Jam</div>
+        </div>
+        <span class="item-price">$16.50</span>
+      </div>
+
+     </div><!-- /col-inner -->
+    </div>
+
+    <!-- CENTER: LA CHONA -->
+    <div class="center">
+      <img class="logo-img" src="media/chona-logo.png" alt="La Chona">
+      <div class="tagline-comida">Burgers<br>&amp; Tots</div>
+      <div class="site">www.lagriferiapr.com</div>
+    </div>
+
+    <!-- RIGHT: TOTS -->
+    <div class="col">
+     <div class="col-inner">
+      <div class="sec-title">Tots</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Side of Tater Tots</div>
+          <div class="item-desc">4 oz</div>
+        </div>
+        <span class="item-price">$5</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Loaded Tots</div>
+        </div>
+        <span class="item-price">$11</span>
+      </div>
+
+     </div><!-- /col-inner -->
+    </div>
+
+  </div>
+  </div><!-- /slide comida · La Chona -->
+
 
   </div><!-- /stage -->
 
@@ -647,16 +734,25 @@
        Se para si hay una sola lámina — así añadir o quitar una es editar HTML
        y nada más, sin tocar este script. */
     (function carrusel() {
-      // El interruptor manda. Sin comida, la lámina se saca del DOM: no basta
-      // con ocultarla, porque una lámina oculta pero presente seguiría
-      // entrando en la rotación si alguien toca este código más adelante.
-      if (window.HAY_COMIDA !== true) {
-        const comida = document.getElementById('lamina-comida');
-        if (comida) comida.remove();
-      } else {
-        const comida = document.getElementById('lamina-comida');
-        if (comida) comida.hidden = false;
-      }
+      /* El interruptor manda, y ahora además ELIGE. `HAY_COMIDA` ya no es
+         sí/no: dice QUÉ popup está cocinando hoy — 'chilea', 'chona', o
+         `false` para apagar la comida entera.
+
+         Las láminas que no son la escogida se sacan del DOM, no se ocultan:
+         una lámina oculta pero presente seguiría entrando en la rotación si
+         alguien toca este código más adelante, y el televisor anunciaría el
+         menú del popup que no vino. Sacarla es la única forma de que ese
+         error no pueda ocurrir.
+
+         Cualquier valor que no sea un popup conocido —una errata, `true` de
+         la versión vieja, el archivo a medio guardar— apaga la comida. La
+         pantalla se queda con las cervezas, que siempre son ciertas. */
+      var popup = String(window.HAY_COMIDA == null ? '' : window.HAY_COMIDA)
+                    .toLowerCase().replace(/['"\s]/g, '');
+      document.querySelectorAll('.popup-comida').forEach(function (lam) {
+        if (lam.id === 'lamina-' + popup) lam.hidden = false;
+        else lam.remove();
+      });
 
       const laminas = Array.from(document.querySelectorAll('.slide'));
 
@@ -689,6 +785,140 @@
         // quedado viejo. Es barato y evita texto desbordado en pantalla.
         fitColumns();
       }, (window.SEGUNDOS_POR_LAMINA || 12) * 1000);
+    })();
+  </script>
+
+  <script>
+    /* ── El vigilante del interruptor ──────────────────────────────────────
+     *
+     * EL PROBLEMA QUE RESUELVE
+     *
+     * Apagar la comida se hace desde el teléfono, en GitHub, cambiando una
+     * palabra en menu-config.js. Pero entre ese cambio y el televisor hay dos
+     * cachés —el de GitHub y el del propio navegador—, los dos con diez
+     * minutos de vida. La página se recargaba cada cinco minutos a ciegas: si
+     * la recarga caía dentro de esos diez minutos, el televisor volvía a leer
+     * el interruptor VIEJO y seguía anunciando hamburguesas. Podía tardar un
+     * cuarto de hora, y no había forma de saber cuánto sin subir al local a
+     * hacer Ctrl+Shift+R.
+     *
+     * CÓMO LO RESUELVE
+     *
+     * En vez de recargar a ciegas y confiar en que el caché coopere, se le
+     * pregunta al servidor por el interruptor cada 45 segundos, saltándose el
+     * caché por las dos vías que existen: `cache: 'no-store'` para el
+     * navegador y una marca de tiempo en la dirección para GitHub —cada
+     * dirección distinta es un archivo distinto para su CDN, así que no
+     * puede servir uno guardado.
+     *
+     * Mientras el interruptor no cambie, mirar no cuesta nada: son dos líneas
+     * de texto y no se recarga. En cuanto cambia, se recarga la página entera
+     * con la dirección marcada, lo que arrastra fresco también el HTML
+     * —precios nuevos, cervezas nuevas— sin tocar nada más.
+     *
+     * Queda además un barrido lento cada diez minutos, porque los precios
+     * viven en el HTML y ahí el vigilante no mira. Antes ese barrido era cada
+     * cinco y era el único mecanismo; ahora que no carga con la urgencia del
+     * interruptor puede ir más espaciado, y el carrusel vuelve a la primera
+     * lámina la mitad de veces.
+     *
+     * Techo real: 45 segundos desde que se guarda en el teléfono, más lo que
+     * GitHub Pages tarde en publicar el commit.
+     * ────────────────────────────────────────────────────────────────────── */
+    (function vigilante() {
+      var CADA = 45 * 1000;          // cada cuánto se pregunta
+      var REFRESCO_LENTO = 600000;   // 10 min: barrido por si cambió el HTML
+
+      // Con qué está funcionando la pantalla AHORA MISMO. Es contra esto que
+      // se compara lo que responda el servidor.
+      // Qué popup vale. 'false', 'true' (la forma vieja) o cualquier errata
+      // se normalizan a cadena vacía = sin comida, para que comparar «lo que
+      // hay en pantalla» contra «lo que dice el archivo» sea siempre justo.
+      function cualPopup(v) {
+        var s = String(v == null ? '' : v).toLowerCase().replace(/['"\s]/g, '');
+        return (s === 'chilea' || s === 'chona') ? s : '';
+      }
+
+      var comidaEnPantalla   = cualPopup(window.HAY_COMIDA);
+      var segundosEnPantalla = window.SEGUNDOS_POR_LAMINA || 12;
+
+      // Si el config no llegó a cargar, `window.HAY_COMIDA` ni existe y la
+      // pantalla está mostrando solo cervezas por precaución. En ese estado NO
+      // se compara nada: el vigilante vería una diferencia en cada vuelta y
+      // dejaría el televisor recargándose cada 45 segundos para siempre. Se
+      // deja el trabajo al refresco lento, que no depende de comparar.
+      var configCargado = (typeof window.HAY_COMIDA !== 'undefined');
+
+      // Recargar de verdad. La marca de tiempo va en la dirección de la propia
+      // página: sin ella el navegador puede resolver la recarga con su copia
+      // guardada y no nos habríamos enterado de nada.
+      function recargarFresco() {
+        var base = location.href.split('#')[0].split('?')[0];
+        location.replace(base + '?v=' + Date.now());
+      }
+
+      // Navegador viejo sin fetch: se vuelve al comportamiento de siempre,
+      // recargar a ciegas, pero al menos con la dirección marcada.
+      if (typeof fetch !== 'function') {
+        setInterval(recargarFresco, REFRESCO_LENTO);
+        return;
+      }
+
+      var mirando = false;
+
+      function mirarInterruptor() {
+        if (mirando) return;         // una consulta a la vez
+        mirando = true;
+
+        fetch('menu-config.js?t=' + Date.now(), { cache: 'no-store' })
+          .then(function (r) { return r.ok ? r.text() : null; })
+          .then(function (txt) {
+            mirando = false;
+            if (!txt || !configCargado) return;
+
+            // Se lee el archivo como texto, con una expresión regular, en vez
+            // de ejecutarlo. Ejecutar un archivo que se edita desde el
+            // teléfono significa que un paréntesis mal puesto tumba la
+            // pantalla del local; leerlo solo significa que un error se ignora
+            // y se sigue mostrando lo último bueno.
+            // Anclado al principio de línea para que una mención dentro de un
+            // comentario no se confunda con la asignación de verdad.
+            // Se acepta 'chilea', 'chona' o false. Las comillas son
+            // opcionales en la expresión para que un cambio hecho desde el
+            // teléfono sin comillas no deje la pantalla sin actualizarse.
+            var mComida   = txt.match(/^\s*(?:window\.)?HAY_COMIDA\s*=\s*['"]?([A-Za-z]+)['"]?/m);
+            var mSegundos = txt.match(/^\s*(?:window\.)?SEGUNDOS_POR_LAMINA\s*=\s*(\d+)/m);
+            if (!mComida) return;    // config a medio escribir: no se toca nada
+
+            var comida   = cualPopup(mComida[1]);
+            var segundos = mSegundos ? parseInt(mSegundos[1], 10) : 12;
+
+            if (comida !== comidaEnPantalla || segundos !== segundosEnPantalla) {
+              recargarFresco();
+            }
+          })
+          .catch(function () {
+            // Sin internet en el local. No se toca la pantalla: lo que está
+            // puesto es lo último que se supo cierto, y eso es mejor que una
+            // pantalla en blanco o un error a la vista de los clientes.
+            mirando = false;
+          });
+      }
+
+      setInterval(mirarInterruptor, CADA);
+
+      // El televisor se apaga al cerrar y se enciende al abrir. Al volver, la
+      // página lleva horas dormida y el interruptor pudo cambiar mientras
+      // tanto: se mira de inmediato en vez de esperar la siguiente vuelta.
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) mirarInterruptor();
+      });
+      window.addEventListener('online', mirarInterruptor);
+
+      // Barrido lento. El vigilante solo ve el interruptor; los precios y las
+      // cervezas viven en el HTML, y para esos hace falta recargar aunque
+      // nada del config haya cambiado.
+      setInterval(recargarFresco, REFRESCO_LENTO);
     })();
   </script>
 
