@@ -34,7 +34,7 @@
    cambiar en todo el archivo.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-window.HAY_COMIDA = 'chona';
+window.HAY_COMIDA = 'chilea';
 
 /* ───────────────────────────────────────────────────────────────────────────
    Cuántos segundos se queda cada lámina antes de pasar a la siguiente.
