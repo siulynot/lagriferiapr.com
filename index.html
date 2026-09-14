@@ -331,90 +331,51 @@
     /* ── MENU ────────────────────────────────────────── */
     #menu { background: #0E141F; }
     .menu-header { max-width: 600px; margin-bottom: 3rem; }
-    .menu-filters {
-      display: flex; gap: 0.75rem; flex-wrap: wrap;
-      margin-bottom: 3rem;
+    /* ── MENÚ VIVO ─────────────────────────────────────
+       La carta se pinta sola desde cervezas-camacho.html (la pantalla del
+       televisor). Si el fetch falla, el visitante ve la nota del HTML y
+       nada más: nunca una carta vieja que parezca vigente. */
+    .menu-vivo-nota {
+      max-width: 560px;
+      font-size: 0.9rem; line-height: 1.7;
+      color: rgba(250,247,242,0.55);
     }
-    .filter-btn {
-      background: transparent;
-      border: 1px solid rgba(250,247,242,0.2);
-      color: rgba(250,247,242,0.6);
-      padding: 0.5rem 1.25rem;
-      font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
-      font-family: 'Inter', sans-serif;
-      border-radius: 999px; cursor: pointer;
-      transition: all 0.2s;
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--yellow); border-color: var(--yellow);
-      color: var(--navy); font-weight: 600;
-    }
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.25rem;
-    }
-    /* ── Photo card ── */
-    .menu-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-      cursor: default;
-    }
-    .menu-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      border-color: rgba(244,197,66,0.3);
-    }
-    .menu-card-img { aspect-ratio: 4/3; overflow: hidden; }
-    .menu-card-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .menu-card:hover .menu-card-img img { transform: scale(1.07); }
-    .menu-card-body { padding: 1.1rem 1.25rem 1.35rem; }
-    .menu-card-category {
-      font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--yellow); margin-bottom: 0.3rem; font-weight: 500;
-    }
-    .menu-card-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem; font-weight: 700; color: var(--cream);
-      margin-bottom: 0.2rem;
-    }
-    .menu-price { display: none; }
-    .menu-card-desc {
-      font-size: 0.75rem; line-height: 1.5;
-      color: rgba(250,247,242,0.45);
-      letter-spacing: 0.03em;
-    }
-    /* ── No-photo card ── */
-    .menu-card.no-photo {
-      background: linear-gradient(135deg, rgba(14,24,44,0.98) 0%, rgba(8,14,26,1) 100%);
-      border-top: 3px solid var(--yellow);
-      border-left: 1px solid rgba(244,197,66,0.12);
-      border-right: 1px solid rgba(244,197,66,0.12);
-      border-bottom: 1px solid rgba(244,197,66,0.12);
-      position: relative; overflow: hidden;
-    }
-    .menu-card.no-photo::after {
-      content: '—';
-      position: absolute; bottom: 1rem; right: 1.5rem;
+    .mv-secciones { columns: 2; column-gap: 4rem; }
+    .mv-seccion { break-inside: avoid; margin-bottom: 2.75rem; }
+    .mv-titulo {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem; line-height: 1;
-      color: rgba(244,197,66,0.08);
-      pointer-events: none; user-select: none;
+      font-size: 1.5rem; letter-spacing: 0.12em;
+      color: var(--yellow);
     }
-    .menu-card.no-photo .menu-card-body {
-      padding: 1.4rem 1.25rem 1.5rem;
-      position: relative; z-index: 1;
+    .mv-titulo-comida { font-size: 1.75rem; }
+    .mv-regla {
+      height: 1px; background: rgba(244,197,66,0.25);
+      margin: 0.5rem 0 1rem;
     }
-    .menu-card.no-photo .menu-price {
-      font-size: 1.25rem;
+    .mv-item {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 1.5rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(250,247,242,0.06);
     }
-    .menu-card[style*="display: none"] { display: none !important; }
+    .mv-item:last-child { border-bottom: none; }
+    .mv-nombre {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 700; color: var(--cream);
+      line-height: 1.3;
+    }
+    .mv-desc {
+      font-size: 0.78rem; line-height: 1.45;
+      color: rgba(250,247,242,0.45);
+      margin-top: 0.15rem; letter-spacing: 0.02em;
+    }
+    .mv-precio { font-weight: 600; color: var(--yellow); white-space: nowrap; }
+    .mv-comida { margin-top: 1rem; }
+    .mv-nota-pie {
+      font-size: 0.8rem; line-height: 1.6;
+      color: var(--mist);
+      margin-top: 1.25rem;
+    }
 
     /* ── GALERÍA ─────────────────────────────────────── */
     #galeria {
@@ -533,7 +494,7 @@
       section { padding: 4rem 1.5rem; }
       .pillars-grid { grid-template-columns: 1fr; }
       .pillar { aspect-ratio: 16/9; }
-      .menu-grid { grid-template-columns: 1fr; }
+      .mv-secciones { columns: 1; }
       .galeria-grid { grid-template-columns: repeat(2, 1fr); }
       .galeria-header { padding: 0 1.5rem 2.5rem; }
       .visita-info { padding: 4rem 1.5rem; }
@@ -772,234 +733,8 @@
       <p class="section-label reveal">Lo Que Servimos</p>
       <h2 class="section-title reveal reveal-delay-1">El <em>Menú</em></h2>
     </div>
-    <div class="menu-filters reveal">
-      <button class="filter-btn active" data-filter="all">Todo</button>
-      <button class="filter-btn" data-filter="picar">Para Picar</button>
-      <button class="filter-btn" data-filter="frituras">Frituras</button>
-      <button class="filter-btn" data-filter="tacos">Tacos</button>
-      <button class="filter-btn" data-filter="platos">Platos</button>
-    </div>
-    <div class="menu-grid">
-
-      <!-- ── PARA PICAR ── -->
-
-      <div class="menu-card reveal" data-cat="picar">
-        <div class="menu-card-img">
-          <img src="Fotos/Chicken%20Wings/IMG_0203.jpg" alt="Alitas" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Para Picar</p>
-          <h3 class="menu-card-name">Alitas</h3>
-          <p class="menu-price">$12 <small style="font-size:0.75rem;opacity:0.6">½dz</small> &nbsp; $22 <small style="font-size:0.75rem;opacity:0.6">dz</small></p>
-          <p class="menu-card-desc">Salsa Naranja · Honey Sriracha · Plain</p>
-        </div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-1" data-cat="picar">
-        <div class="menu-card-img">
-          <img src="Fotos/Dumplings/IMG_0197.jpg" alt="Dumplings" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Para Picar</p>
-          <h3 class="menu-card-name">Dumplings (5)</h3>
-          <p class="menu-price">$8</p>
-          <p class="menu-card-desc">Cerdo o Veggie · Sesame · Soya · Cebollines</p>
-        </div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-2" data-cat="picar">
-        <div class="menu-card-img">
-          <img src="Fotos/%20calamares/IMG_0214.jpg" alt="Calamares Fritos" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Para Picar</p>
-          <h3 class="menu-card-name">Calamares Fritos</h3>
-          <p class="menu-price">$12</p>
-          <p class="menu-card-desc">Salsa de chile dulce y limón · Spicy Mayo</p>
-        </div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-3" data-cat="picar">
-        <div class="menu-card-img">
-          <img src="Fotos/Tuna%20Tartar/IMG_0122.jpg" alt="Tuna Tartar" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Para Picar</p>
-          <h3 class="menu-card-name">Tuna Tartar</h3>
-          <p class="menu-price">$15</p>
-          <p class="menu-card-desc">Sesame Lime Vinaigrette</p>
-        </div>
-      </div>
-
-      <div class="menu-card reveal" data-cat="picar">
-        <div class="menu-card-img">
-          <img src="fotos2/DSC02642.jpg" alt="Masitas de Cerdo" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Para Picar</p>
-          <h3 class="menu-card-name">Masitas de Cerdo</h3>
-          <p class="menu-price">$9</p>
-          <p class="menu-card-desc">Mojo · Cebolla encurtida</p>
-        </div>
-      </div>
-
-      <div class="menu-card no-photo reveal reveal-delay-1" data-cat="picar" data-price="$9">
-        <div class="menu-card-body">
-          <p class="menu-card-category">Para Picar</p>
-          <h3 class="menu-card-name">Masitas de Pollo</h3>
-          <p class="menu-price">$9</p>
-          <p class="menu-card-desc">Mojo · Cebolla encurtida</p>
-        </div>
-      </div>
-
-      <div class="menu-card no-photo reveal reveal-delay-2" data-cat="picar" data-price="$12">
-        <div class="menu-card-body">
-          <p class="menu-card-category">Para Picar</p>
-          <h3 class="menu-card-name">Masitas de Pescado</h3>
-          <p class="menu-price">$12</p>
-          <p class="menu-card-desc">Mojo · Cebolla encurtida</p>
-        </div>
-      </div>
-
-      <!-- ── FRITURAS ── -->
-
-      <div class="menu-card no-photo reveal" data-cat="frituras" data-price="$8">
-        <div class="menu-card-body">
-          <p class="menu-card-category">Frituras</p>
-          <h3 class="menu-card-name">Croquetas (5)</h3>
-          <p class="menu-price">$8</p>
-          <p class="menu-card-desc">Panko · Aioli</p>
-        </div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-1" data-cat="frituras">
-        <div class="menu-card-img">
-          <img src="fotos2/DSC02645.jpg" alt="Bolitas de Queso" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Frituras</p>
-          <h3 class="menu-card-name">Bolitas de Queso (6)</h3>
-          <p class="menu-price">$8</p>
-          <p class="menu-card-desc">Mayo Ketchup</p>
-        </div>
-      </div>
-
-      <div class="menu-card no-photo reveal reveal-delay-2" data-cat="frituras" data-price="$8">
-        <div class="menu-card-body">
-          <p class="menu-card-category">Frituras</p>
-          <h3 class="menu-card-name">Mini Alcapurrias (5)</h3>
-          <p class="menu-price">$8</p>
-          <p class="menu-card-desc">Guineo y Carne</p>
-        </div>
-      </div>
-
-      <div class="menu-card no-photo reveal reveal-delay-3" data-cat="frituras" data-price="$5">
-        <div class="menu-card-body">
-          <p class="menu-card-category">Frituras</p>
-          <h3 class="menu-card-name">Bacalaitos (5)</h3>
-          <p class="menu-price">$5</p>
-          <p class="menu-card-desc">Masa · Bacalao</p>
-        </div>
-      </div>
-
-      <div class="menu-card reveal" data-cat="frituras">
-        <div class="menu-card-img">
-          <img src="fotos2/DSC02601.jpg" alt="Camarones Empanados" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Frituras</p>
-          <h3 class="menu-card-name">Camarones Empanados (5)</h3>
-          <p class="menu-price">$15</p>
-          <p class="menu-card-desc">Spicy Mayo</p>
-        </div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-1" data-cat="frituras">
-        <div class="menu-card-img">
-          <img src="fotos2/DSC02608.jpg" alt="Taro Fries" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Frituras</p>
-          <h3 class="menu-card-name">Taro Fries</h3>
-          <p class="menu-price">$5</p>
-          <p class="menu-card-desc">Malanga Chips</p>
-        </div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-2" data-cat="frituras">
-        <div class="menu-card-img">
-          <img src="fotos2/DSC02640.jpg" alt="Tostones" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Frituras</p>
-          <h3 class="menu-card-name">Tostones (5)</h3>
-          <p class="menu-price">$5</p>
-          <p class="menu-card-desc">Pana · Mayo Ketchup</p>
-        </div>
-      </div>
-
-      <!-- ── TACOS ── -->
-
-      <div class="menu-card no-photo reveal" data-cat="tacos" data-price="$12">
-        <div class="menu-card-body">
-          <p class="menu-card-category">Tacos</p>
-          <h3 class="menu-card-name">Tacos de Pollo (3)</h3>
-          <p class="menu-price">$12</p>
-          <p class="menu-card-desc">Coleslaw · Spicy Mayo</p>
-        </div>
-      </div>
-
-      <div class="menu-card reveal reveal-delay-1" data-cat="tacos">
-        <div class="menu-card-img">
-          <img src="Fotos/Fish%20Tacos/IMG_0209.jpg" alt="Tacos de Pescado" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Tacos</p>
-          <h3 class="menu-card-name">Tacos de Pescado (3)</h3>
-          <p class="menu-price">$14</p>
-          <p class="menu-card-desc">Coleslaw · Spicy Mayo</p>
-        </div>
-      </div>
-
-      <div class="menu-card no-photo reveal reveal-delay-2" data-cat="tacos" data-price="$12">
-        <div class="menu-card-body">
-          <p class="menu-card-category">Tacos</p>
-          <h3 class="menu-card-name">Tacos de Cerdo (3)</h3>
-          <p class="menu-price">$12</p>
-          <p class="menu-card-desc">Coleslaw · Spicy Mayo</p>
-        </div>
-      </div>
-
-      <!-- ── PLATOS ── -->
-
-      <div class="menu-card reveal" data-cat="platos">
-        <div class="menu-card-img">
-          <img src="Fotos/Pad%20thai/IMG_9776.jpg" alt="Pad Thai" loading="lazy">
-        </div>
-        <div class="menu-card-body">
-          <p class="menu-card-category">Platos</p>
-          <h3 class="menu-card-name">Pad Thai</h3>
-          <p class="menu-card-desc">Veggie · Pollo · Cerdo · Camarones</p>
-        </div>
-      </div>
-
-      <div class="menu-card no-photo reveal reveal-delay-1" data-cat="platos" data-price="$17">
-        <div class="menu-card-body">
-          <p class="menu-card-category">Platos</p>
-          <h3 class="menu-card-name">Arroz Frito</h3>
-          <p class="menu-card-desc">Veggie · Pollo · Cerdo · Camarones</p>
-        </div>
-      </div>
-
-      <div class="menu-card no-photo reveal reveal-delay-2" data-cat="platos" data-price="$19">
-        <div class="menu-card-body">
-          <p class="menu-card-category">Platos</p>
-          <h3 class="menu-card-name">Poke Bowl</h3>
-          <p class="menu-price">$19</p>
-          <p class="menu-card-desc">Ahi Tuna · Arroz · Aguacate · Pepinillo</p>
-        </div>
-      </div>
-
+    <div id="menu-vivo" class="reveal">
+      <p class="menu-vivo-nota">El menú de esta página es el mismo del televisor del local: se carga en vivo cada vez que entras. Si no aparece en unos segundos, la carta del día la tienes en la barra.</p>
     </div>
   </section>
 
@@ -1176,24 +911,157 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
 
-    // ── Menu filter ─────────────────────────────────────
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const menuCards  = document.querySelectorAll('.menu-card');
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        menuCards.forEach(card => {
-          const show = filter === 'all' || card.dataset.cat === filter;
-          card.style.display = show ? '' : 'none';
+    // ── Menú vivo ─────────────────────────────────────
+    // La carta se lee de cervezas-camacho.html, que es donde se edita (casi
+    // siempre desde el teléfono). Aquí no se guarda copia: se pide en cada
+    // visita. Las reglas son las del televisor:
+    //   · El config no se ejecuta, se lee con regex: una errata no puede
+    //     romper esta página; como mucho, falta la comida.
+    //   · Todo o nada: si las bebidas salen incompletas no se toca nada y
+    //     queda la nota del HTML. Nunca media carta.
+    //   · Sin romper el caché: Pages sirve con 10 minutos y para la web
+    //     está bien. La urgencia es cosa del televisor.
+    (function menuVivo() {
+      var cont = document.getElementById('menu-vivo');
+      if (!cont || typeof fetch !== 'function' || typeof DOMParser !== 'function') return;
+
+      // La misma normalización del vigilante del televisor: minúsculas, sin
+      // comillas ni espacios, y solo los popups conocidos prenden.
+      function cualPopup(v) {
+        var s = String(v == null ? '' : v).toLowerCase().replace(/['"\s]/g, '');
+        return (s === 'chilea' || s === 'chona') ? s : '';
+      }
+
+      function texto(el) { return el ? el.textContent.trim() : ''; }
+
+      function nodo(tag, clase, txt) {
+        var el = document.createElement(tag);
+        if (clase) el.className = clase;
+        if (txt) el.textContent = txt;
+        return el;
+      }
+
+      // Cada .col-inner agrupa .sec-title + .item, en orden de documento.
+      function leerSecciones(lamina) {
+        var secciones = [];
+        lamina.querySelectorAll('.col-inner').forEach(function (col) {
+          var actual = null;
+          col.querySelectorAll('.sec-title, .item').forEach(function (el) {
+            if (el.classList.contains('sec-title')) {
+              actual = { titulo: texto(el), items: [] };
+              secciones.push(actual);
+            } else if (actual) {
+              var nombre = texto(el.querySelector('.item-name'));
+              if (nombre) {
+                actual.items.push({
+                  nombre: nombre,
+                  desc: texto(el.querySelector('.item-desc')),
+                  precio: texto(el.querySelector('.item-price'))
+                });
+              }
+            }
+          });
         });
-        // re-trigger reveal on newly visible cards
-        document.querySelectorAll('.menu-card:not([style*="none"]) .reveal:not(.visible)').forEach(el => {
-          el.classList.add('visible');
+        return secciones.filter(function (s) { return s.titulo && s.items.length; });
+      }
+
+      function pintarSeccion(sec) {
+        var box = nodo('div', 'mv-seccion');
+        box.appendChild(nodo('h3', 'mv-titulo', sec.titulo));
+        box.appendChild(nodo('div', 'mv-regla'));
+        sec.items.forEach(function (it) {
+          var fila = nodo('div', 'mv-item');
+          var info = nodo('div');
+          info.appendChild(nodo('div', 'mv-nombre', it.nombre));
+          if (it.desc) info.appendChild(nodo('div', 'mv-desc', it.desc));
+          fila.appendChild(info);
+          if (it.precio) fila.appendChild(nodo('span', 'mv-precio', it.precio));
+          box.appendChild(fila);
         });
+        return box;
+      }
+
+      Promise.all([
+        fetch('cervezas-camacho.html').then(function (r) { return r.ok ? r.text() : null; }),
+        fetch('menu-config.js').then(function (r) { return r.ok ? r.text() : null; })
+      ]).then(function (res) {
+        var html = res[0], cfg = res[1];
+        if (!html) return;
+
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+
+        // Bebidas: la lámina que no es de popup. Piso de cordura: la carta
+        // real siempre trae varias secciones y varios tragos; menos que eso
+        // es un archivo a medio guardar, y media carta parece página rota.
+        var lamina = doc.querySelector('.slide:not(.popup-comida)');
+        if (!lamina) return;
+        var bebidas = leerSecciones(lamina);
+        var total = bebidas.reduce(function (n, s) { return n + s.items.length; }, 0);
+        if (bebidas.length < 2 || total < 5) {
+          console.warn('menu-vivo: bebidas incompletas, se deja la nota.');
+          return;
+        }
+
+        var popup = '';
+        if (cfg) {
+          var m = cfg.match(/^\s*(?:window\.)?HAY_COMIDA\s*=\s*['"]?([A-Za-z]+)['"]?/m);
+          popup = m ? cualPopup(m[1]) : '';
+        }
+
+        var raiz = nodo('div');
+        var cols = nodo('div', 'mv-secciones');
+        bebidas.forEach(function (s) { cols.appendChild(pintarSeccion(s)); });
+        raiz.appendChild(cols);
+
+        // El upsell del centro del televisor ("Pide en 16oz +$2"…).
+        var labels = lamina.querySelectorAll('.upsell-label');
+        var valores = lamina.querySelectorAll('.upsell-value');
+        if (labels.length) {
+          var partes = [];
+          labels.forEach(function (l, i) {
+            partes.push(texto(l) + (valores[i] ? ' ' + texto(valores[i]) : ''));
+          });
+          raiz.appendChild(nodo('p', 'mv-nota-pie', partes.join(' · ')));
+        }
+
+        // Comida: solo la lámina del popup que el config dice que cocina
+        // hoy. Sin config válido, solo barra — la misma cautela del
+        // televisor: anunciar comida que no hay es el error caro.
+        if (popup) {
+          var lam = doc.getElementById('lamina-' + popup);
+          var secs = lam ? leerSecciones(lam) : [];
+          if (secs.length) {
+            var bloque = nodo('div', 'mv-comida');
+            var logo = lam.querySelector('.center img');
+            var cocina = logo && logo.alt ? logo.alt.trim() : popup;
+            bloque.appendChild(nodo('h3', 'mv-titulo mv-titulo-comida', 'Hoy cocina: ' + cocina));
+            bloque.appendChild(nodo('div', 'mv-regla'));
+            var colsC = nodo('div', 'mv-secciones');
+            secs.forEach(function (s) { colsC.appendChild(pintarSeccion(s)); });
+            bloque.appendChild(colsC);
+            var extras = [];
+            lam.querySelectorAll('.addon').forEach(function (a) {
+              var t = a.textContent.replace(/\s+/g, ' ').trim();
+              if (t) extras.push(t);
+            });
+            if (extras.length) bloque.appendChild(nodo('p', 'mv-nota-pie', extras.join(' · ')));
+            var nota = texto(lam.querySelector('.addon-note'));
+            if (nota) bloque.appendChild(nodo('p', 'mv-nota-pie', nota));
+            raiz.appendChild(bloque);
+          } else {
+            console.warn('menu-vivo: el config anuncia ' + popup + ' pero su lámina no se pudo leer.');
+          }
+        } else {
+          raiz.appendChild(nodo('p', 'mv-nota-pie', 'Hoy: solo barra. La cocina vuelve con el próximo popup.'));
+        }
+
+        // Se escribe una sola vez, al final, con todo validado.
+        cont.textContent = '';
+        cont.appendChild(raiz);
+      }).catch(function () {
+        // Sin red o respuesta rara: queda la nota, lo último que se sabe cierto.
       });
-    });
+    })();
   </script>
 
 </body>

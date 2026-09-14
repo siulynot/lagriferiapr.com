@@ -107,23 +107,13 @@ Loaded from Google Fonts. The combination creates contrast: Bebas Neue gives raw
 - To add/remove beer styles: edit `.cerveza-tags` span elements
 
 ### 6. Menú
-- JS-filtered grid — three buttons: Todo / Aperitivos / Platos
-- Filter logic: `data-cat` attribute on each `.menu-card` (`aperitivo` or `plato`)
-- Cards: image + category label + name + description
-- **Prices are NOT included** — add them inside `.menu-card-body` if needed
-- To add a menu item: copy a `.menu-card` block, update `data-cat`, image path, name, and description
-
-**Current items:**
-| Item | Category | Photo folder |
-|------|----------|-------------|
-| Fish Tacos | aperitivo | `Fish Tacos/` |
-| Chicken Wings | aperitivo | `Chicken Wings/` |
-| Dumplings | aperitivo | `Dumplings/` |
-| Tuna Tartar | aperitivo | `Tuna Tartar/` |
-| Calamares | aperitivo | `calamares/` |
-| Edamames | aperitivo | `Edamames/` |
-| Papaya Salad | aperitivo | `Papaya Salad/` |
-| Pad Thai | plato | `Pad thai/` |
+- **El menú es vivo**: la sección `#menu` se pinta sola leyendo `cervezas-camacho.html` (la pantalla del televisor) y `menu-config.js` en cada visita. No hay carta escrita a mano en `index.html`.
+- **Para cambiar la carta: edita `cervezas-camacho.html`, nunca `index.html`.** Nombre, descripción y precio de cada `.item`; secciones nuevas con un `.sec-title`.
+- Qué cocina aparece la decide `HAY_COMIDA` en `menu-config.js` (`'chilea'` | `'chona'` | `false`), igual que en el televisor. Con `false` el website muestra solo bebidas.
+- Los precios **sí** se muestran — son los mismos del televisor.
+- Si el fetch falla, el visitante ve una nota y nada más. No hay carta de respaldo: una copia escondida envejece mintiendo, que era el problema original.
+- Contrato: no renombrar `.sec-title`, `.item`, `.item-name`, `.item-desc`, `.item-price`, `.col-inner` ni los ids `lamina-*` en `cervezas-camacho.html` sin actualizar el script del website (hay un aviso igual al inicio de ese archivo).
+- Frescura: igual que el deploy de Pages (suele ser ~1 minuto) más el caché de Pages (hasta 10 minutos).
 
 ### 7. Galería
 - CSS Grid, 4 columns desktop / 2 columns mobile
@@ -166,7 +156,6 @@ CNAME www lagriferiapr.com
 
 ## What Needs Updating
 
-- [ ] **Menu prices** — not included, add as needed
 - [ ] **Hours** — verify exact current hours in the `#visita` section
 - [ ] **Google Maps embed** — replace the placeholder iframe `src` with the real embed URL from Google Maps
 - [ ] **Instagram/Facebook URLs** — verify handles are `lagriferiapr` on both platforms
@@ -180,19 +169,8 @@ CNAME www lagriferiapr.com
 **Change a section background photo:**
 Find the relevant `<img>` tag or `background-image` CSS and update the path.
 
-**Add a new menu item:**
-```html
-<div class="menu-card" data-cat="aperitivo">
-  <div class="menu-card-img">
-    <img src="Fotos/NewFolder/photo.jpg" alt="Nombre" loading="lazy">
-  </div>
-  <div class="menu-card-body">
-    <p class="menu-card-category">Aperitivo</p>
-    <h3 class="menu-card-name">Nombre del Plato</h3>
-    <p class="menu-card-desc">Descripción breve del plato.</p>
-  </div>
-</div>
-```
+**Change the menu:**
+You don't edit it here. Edit `cervezas-camacho.html` (the TV screen file) — the website reads it on every visit. See section 6 for the contract.
 
 **Change brand yellow:**
 Update `--yellow: #F4C542;` in `:root`.
