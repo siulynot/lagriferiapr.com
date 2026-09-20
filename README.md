@@ -109,7 +109,8 @@ Loaded from Google Fonts. The combination creates contrast: Bebas Neue gives raw
 ### 6. Menú
 - **El menú es vivo**: la sección `#menu` se pinta sola leyendo `cervezas-camacho.html` (la pantalla del televisor) y `menu-config.js` en cada visita. No hay carta escrita a mano en `index.html`.
 - **Para cambiar la carta: edita `cervezas-camacho.html`, nunca `index.html`.** Nombre, descripción y precio de cada `.item`; secciones nuevas con un `.sec-title`.
-- Qué cocina aparece la decide `HAY_COMIDA` en `menu-config.js` (`'chilea'` | `'chona'` | `false`), igual que en el televisor. Con `false` el website muestra solo bebidas.
+- Qué cocina aparece la decide `HAY_COMIDA` en `menu-config.js` (`'chilea'` | `'chona'` | `'burger662'` | `false`), igual que en el televisor. Con `false` el website muestra solo bebidas.
+- Un popup nuevo necesita dos cosas, o el nombre no enciende nada: su lámina en `cervezas-camacho.html` con el id `lamina-<nombre>`, y ese nombre en la lista de conocidos dentro de `cualPopup()` —está en `index.html` y en `cervezas-camacho.html`—. Si el nombre lleva dígitos, como `'burger662'`, la expresión que lee el config tiene que aceptarlos: `[A-Za-z0-9]+` y no `[A-Za-z]+`.
 - Los precios **sí** se muestran — son los mismos del televisor.
 - Si el fetch falla, el visitante ve una nota y nada más. No hay carta de respaldo: una copia escondida envejece mintiendo, que era el problema original.
 - Contrato: no renombrar `.sec-title`, `.item`, `.item-name`, `.item-desc`, `.item-price`, `.col-inner` ni los ids `lamina-*` en `cervezas-camacho.html` sin actualizar el script del website (hay un aviso igual al inicio de ese archivo).

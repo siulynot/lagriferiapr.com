@@ -6,11 +6,12 @@
    debe anunciarla: un cliente que ve hamburguesas y se sienta a pedirlas se
    va molesto, y eso cuesta más que la venta que no se hizo.
 
-   QUÉ SE ESCRIBE EN LA LÍNEA DE ABAJO — una de estas tres, con comillas:
+   QUÉ SE ESCRIBE EN LA LÍNEA DE ABAJO — una de estas, con comillas:
 
-       'chilea'   → se anuncia el menú de Chilea Burger Lab
-       'chona'    → se anuncia el menú de La Chona
-       false      → no hay comida: solo cervezas   (SIN comillas)
+       'chilea'     → se anuncia el menú de Chilea Burger Lab
+       'chona'      → se anuncia el menú de La Chona
+       'burger662'  → se anuncia el menú de Burger 662
+       false        → no hay comida: solo cervezas   (SIN comillas)
 
    Cualquier otra cosa —una errata, un popup que no existe— apaga la comida.
    Eso es a propósito: entre anunciar el menú equivocado y no anunciar nada,
@@ -18,7 +19,9 @@
    se venden se va molesto; uno que no las ve, pregunta.
 
    Para añadir un popup nuevo hace falta además su lámina en el HTML, con el
-   id `lamina-<nombre>`. Sin eso, escribir su nombre aquí apaga la comida.
+   id `lamina-<nombre>`, y su nombre en la lista de `cualPopup()` —que está
+   en index.html y en cervezas-camacho.html—. Sin eso, escribir su nombre
+   aquí apaga la comida.
 
    Guarda el cambio y ya. El televisor le pregunta a este archivo cada 45
    segundos saltándose los dos cachés que hay en medio —el suyo y el de
@@ -34,7 +37,7 @@
    cambiar en todo el archivo.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-window.HAY_COMIDA = 'chilea';
+window.HAY_COMIDA = 'burger662';
 
 /* ───────────────────────────────────────────────────────────────────────────
    Cuántos segundos se queda cada lámina antes de pasar a la siguiente.

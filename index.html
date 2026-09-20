@@ -929,7 +929,7 @@
       // comillas ni espacios, y solo los popups conocidos prenden.
       function cualPopup(v) {
         var s = String(v == null ? '' : v).toLowerCase().replace(/['"\s]/g, '');
-        return (s === 'chilea' || s === 'chona') ? s : '';
+        return (s === 'chilea' || s === 'chona' || s === 'burger662') ? s : '';
       }
 
       function texto(el) { return el ? el.textContent.trim() : ''; }
@@ -1004,7 +1004,10 @@
 
         var popup = '';
         if (cfg) {
-          var m = cfg.match(/^\s*(?:window\.)?HAY_COMIDA\s*=\s*['"]?([A-Za-z]+)['"]?/m);
+          // Los dígitos entran en la captura: el popup de Burger 662 los
+          // lleva en el nombre y sin ellos se leería 'burger', que no es
+          // ninguno de los conocidos, y el website diría que no hay cocina.
+          var m = cfg.match(/^\s*(?:window\.)?HAY_COMIDA\s*=\s*['"]?([A-Za-z0-9]+)['"]?/m);
           popup = m ? cualPopup(m[1]) : '';
         }
 
