@@ -23,7 +23,8 @@
 
            sec-title · item · item-name · item-desc · item-price · col-inner
            upsell-label · upsell-value · addon · addon-note
-           y los id: lamina-chilea · lamina-chona · lamina-burger662
+           y los id: lamina-chilea · lamina-chona · lamina-burger662 ·
+           lamina-787smoke
 
        Si un día se rediseña la pantalla y eso cambia, el menú del website
        deja de actualizarse —no rompe nada más, el visitante ve una nota—
@@ -335,6 +336,16 @@
     #lamina-burger662 .item              { gap: 2vw; }
     #lamina-burger662 .col-burgers .item { padding: 5vh 0; }
     #lamina-burger662 .col-papas .item   { padding: 3vh 0; }
+
+    /* ── LA COLUMNA DEL WORDMARK DE 787 SMOKE RUB ────────
+       Su logotipo también es un wordmark apaisado (2.8 de ancho por 1 de
+       alto), igual que el de Burger 662; con la columna de siempre se
+       dibujaría como una firma al pie y no como el logotipo de la casa.
+       Para esta lámina la columna central se ensancha y el logo crece con
+       ella. El ancho sale de las columnas de los lados, que lo ceden sin
+       apretarse: la carta son tres renglones por lado. */
+    #lamina-787smoke .grid     { grid-template-columns: 1fr 22vw 1fr; }
+    #lamina-787smoke .logo-img { width: 21vw; }
   </style>
 </head>
 <body>
@@ -773,6 +784,111 @@
   </div>
   </div><!-- /slide comida · Burger 662 -->
 
+  <!-- ══════════ LÁMINA 2d · COMIDA · 787 SMOKE RUB ══════════
+       Se enciende con HAY_COMIDA = '787smoke'. Ver la nota de la lámina de
+       Chilea: solo entra en la rotación la que el interruptor escoge.
+
+       Del cartel se toma la carta, no la promoción: la fecha (25–27 de
+       septiembre) y las frases de la casa son del evento, y lo que se anuncia
+       aquí es lo que se vende mientras el popup esté encendido. Por eso el
+       centro lleva el logotipo con su lema y no el cartel entero. -->
+  <div class="slide popup-comida" id="lamina-787smoke" hidden>
+  <div class="grid">
+
+    <!-- LEFT: SÁNDWICHES + BANDEJA -->
+    <div class="col">
+     <div class="col-inner col-burgers">
+      <div class="sec-title">Sándwiches</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Pulled Pork</div>
+          <div class="item-desc">Cerdo ahumado &amp; BBQ de la casa</div>
+        </div>
+        <span class="item-price">$18</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Brisket</div>
+          <div class="item-desc">Punta de pecho ahumada &amp; BBQ de la casa</div>
+        </div>
+        <span class="item-price">$20</span>
+      </div>
+
+      <!-- Las dos versiones sin papas bajan exactamente $3, así que es un
+           solo añadido y no dos renglones que digan casi lo mismo. -->
+      <div class="addons">
+        <span class="addon">Sin papas <b>−$3</b></span>
+        <span class="addon-note">Los sándwiches se sirven con papas fritas</span>
+      </div>
+
+      <div class="sec-title sec-gap">Bandeja Surtida</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">787 Smoke Rub</div>
+          <div class="item-desc">½ costillar · ½ lb brisket · ½ lb pulled pork · mac and cheese, repollo &amp; papas</div>
+        </div>
+        <span class="item-price">$62</span>
+      </div>
+
+     </div><!-- /col-inner -->
+    </div>
+
+    <!-- CENTER: 787 SMOKE RUB -->
+    <div class="center">
+      <img class="logo-img" src="media/787smoke-logo.png" alt="787 Smoke Rub">
+      <div class="tagline-comida">El sabor que<br>domina el fuego</div>
+      <div class="site">by Loperena · www.lagriferiapr.com</div>
+    </div>
+
+    <!-- RIGHT: DEL AHUMADOR + EXTRAS -->
+    <div class="col">
+     <div class="col-inner">
+      <div class="sec-title">Del Ahumador</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">½ Costillar</div>
+        </div>
+        <span class="item-price">$20</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Costillar Completo</div>
+        </div>
+        <span class="item-price">$35</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">3 Costillas</div>
+          <div class="item-desc">Con papas, mac and cheese o repollo</div>
+        </div>
+        <span class="item-price">$14</span>
+      </div>
+
+      <div class="sec-title sec-gap">Extras</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Guarnición Adicional</div>
+          <div class="item-desc">Ensalada de repollo, mac and cheese o papas fritas</div>
+        </div>
+        <span class="item-price">$5</span>
+      </div>
+     </div><!-- /col-inner -->
+    </div>
+
+  </div>
+  </div><!-- /slide comida · 787 Smoke Rub -->
+
 
   </div><!-- /stage -->
 
@@ -860,7 +976,7 @@
     (function carrusel() {
       /* El interruptor manda, y ahora además ELIGE. `HAY_COMIDA` ya no es
          sí/no: dice QUÉ popup está cocinando hoy — 'chilea', 'chona',
-         'burger662', o `false` para apagar la comida entera.
+         'burger662', '787smoke', o `false` para apagar la comida entera.
 
          Las láminas que no son la escogida se sacan del DOM, no se ocultan:
          una lámina oculta pero presente seguiría entrando en la rotación si
@@ -960,7 +1076,7 @@
       // hay en pantalla» contra «lo que dice el archivo» sea siempre justo.
       function cualPopup(v) {
         var s = String(v == null ? '' : v).toLowerCase().replace(/['"\s]/g, '');
-        return (s === 'chilea' || s === 'chona' || s === 'burger662') ? s : '';
+        return (s === 'chilea' || s === 'chona' || s === 'burger662' || s === '787smoke') ? s : '';
       }
 
       var comidaEnPantalla   = cualPopup(window.HAY_COMIDA);
@@ -1007,12 +1123,13 @@
             // y se sigue mostrando lo último bueno.
             // Anclado al principio de línea para que una mención dentro de un
             // comentario no se confunda con la asignación de verdad.
-            // Se acepta 'chilea', 'chona', 'burger662' o false. Las comillas
-            // son opcionales en la expresión para que un cambio hecho desde
-            // el teléfono sin comillas no deje la pantalla sin actualizarse.
-            // Los dígitos entran en la captura porque Burger 662 los lleva
-            // en el nombre; sin ellos se leería 'burger' y la comida se
-            // apagaría sola en cada vuelta del vigilante.
+            // Se acepta 'chilea', 'chona', 'burger662', '787smoke' o false.
+            // Las comillas son opcionales en la expresión para que un cambio
+            // hecho desde el teléfono sin comillas no deje la pantalla sin
+            // actualizarse. Los dígitos entran en la captura porque Burger
+            // 662 y 787 Smoke Rub los llevan en el nombre; sin ellos se
+            // leería 'burger' o 'smoke', que no son popups conocidos, y la
+            // comida se apagaría sola en cada vuelta del vigilante.
             var mComida   = txt.match(/^\s*(?:window\.)?HAY_COMIDA\s*=\s*['"]?([A-Za-z0-9]+)['"]?/m);
             var mSegundos = txt.match(/^\s*(?:window\.)?SEGUNDOS_POR_LAMINA\s*=\s*(\d+)/m);
             if (!mComida) return;    // config a medio escribir: no se toca nada

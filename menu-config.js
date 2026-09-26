@@ -11,6 +11,7 @@
        'chilea'     → se anuncia el menú de Chilea Burger Lab
        'chona'      → se anuncia el menú de La Chona
        'burger662'  → se anuncia el menú de Burger 662
+       '787smoke'   → se anuncia el menú de 787 Smoke Rub by Loperena
        false        → no hay comida: solo cervezas   (SIN comillas)
 
    Cualquier otra cosa —una errata, un popup que no existe— apaga la comida.
@@ -37,7 +38,7 @@
    cambiar en todo el archivo.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-window.HAY_COMIDA = 'false';
+window.HAY_COMIDA = '787smoke';
 
 /* ───────────────────────────────────────────────────────────────────────────
    Cuántos segundos se queda cada lámina antes de pasar a la siguiente.
