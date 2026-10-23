@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "upsell": [
+    {
+      "label": "Pide en 16oz",
+      "value": "+$2"
+    },
+    {
+      "label": "Rare Candy Creations",
+      "value": "$7"
+    }
+  ],
+  "secciones": [
+    {
+      "columna": "izquierda",
+      "titulo": "Del Grifo",
+      "gap": false,
+      "items": [
+        {
+          "nombre": "Pelicano",
+          "desc": "Cervezas Camacho 5.4%ABV · Session IPA · 12oz",
+          "precio": "$7",
+          "compact": false
+        },
+        {
+          "nombre": "Happy Fest",
+          "desc": "Cervezas Camacho 6%ABV · Festbier · 12oz",
+          "precio": "$7",
+          "compact": false
+        },
+        {
+          "nombre": "Pale Ale",
+          "desc": "Cervezas Camacho 5.4%ABV · Pale Ale · 12oz",
+          "precio": "$7",
+          "compact": false
+        },
+        {
+          "nombre": "Condado",
+          "desc": "Ocean Lab/Tripping Animals 4.5%ABV · West Coast Pils 12oz",
+          "precio": "$7",
+          "compact": false
+        },
+        {
+          "nombre": "Ocean Stout",
+          "desc": "Ocean Lab 5.4%ABV · Milk Stout · 12oz",
+          "precio": "$7",
+          "compact": false
+        },
+        {
+          "nombre": "Ocean Viva La Chela",
+          "desc": "Ocean Lab 4.5%ABV · Mexican Lager · 12oz",
+          "precio": "$7",
+          "compact": false
+        },
+        {
+          "nombre": "Unidad 9",
+          "desc": "Reina Mora 6.9%ABV · American IPA · 12oz",
+          "precio": "$8",
+          "compact": false
+        },
+        {
+          "nombre": "Sipi Mead",
+          "desc": "Colonia Meadery 7%ABV · Mead · 12oz",
+          "precio": "$11",
+          "compact": false
+        },
+        {
+          "nombre": "Medalla",
+          "desc": "Cervecera de Puerto Rico 4.5%ABV · Light Lager · 12oz",
+          "precio": "$4",
+          "compact": false
+        },
+        {
+          "nombre": "Kombucha",
+          "desc": "Fermento Comio 0%ABV · Lavanda Limón · 12oz",
+          "precio": "$8",
+          "compact": false
+        }
+      ]
+    },
+    {
+      "columna": "derecha",
+      "titulo": "Tragos",
+      "gap": false,
+      "items": [
+        {
+          "nombre": "Absolut",
+          "desc": "12oz",
+          "precio": "$7",
+          "compact": true
+        },
+        {
+          "nombre": "Jameson",
+          "desc": "12oz",
+          "precio": "$7",
+          "compact": true
+        },
+        {
+          "nombre": "Espolón",
+          "desc": "12oz",
+          "precio": "$7",
+          "compact": true
+        }
+      ]
+    },
+    {
+      "columna": "derecha",
+      "titulo": "Latas",
+      "gap": true,
+      "items": [
+        {
+          "nombre": "Santurce Brewery",
+          "desc": "Variedad Latas",
+          "precio": "$7",
+          "compact": false
+        },
+        {
+          "nombre": "Del Oeste",
+          "desc": "Variedad Latas",
+          "precio": "$4",
+          "compact": false
+        },
+        {
+          "nombre": "Pinot Noir",
+          "desc": "The Pinot Project 13.5%ABV · 250ml",
+          "precio": "$8",
+          "compact": false
+        },
+        {
+          "nombre": "Cava",
+          "desc": "Dibon 11%ABV · Brut Selección 187ml",
+          "precio": "$9",
+          "compact": false
+        }
+      ]
+    }
+  ]
+}
