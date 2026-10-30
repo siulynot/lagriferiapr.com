@@ -38,7 +38,7 @@
    cambiar en todo el archivo.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-window.HAY_COMIDA = false;
+window.HAY_COMIDA = '787smoke';
 
 /* ───────────────────────────────────────────────────────────────────────────
    Cuántos segundos se queda cada lámina antes de pasar a la siguiente.
