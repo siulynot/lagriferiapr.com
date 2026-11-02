@@ -41,21 +41,9 @@
           "compact": false
         },
         {
-          "nombre": "Ocean Stout",
-          "desc": "Ocean Lab 5.4%ABV · Milk Stout · 12oz",
+          "nombre": "Ocean Baraka",
+          "desc": "Ocean Lab 5.9%ABV · Coffee Stout · 12oz",
           "precio": "$7",
-          "compact": false
-        },
-        {
-          "nombre": "Ocean Viva La Chela",
-          "desc": "Ocean Lab 4.5%ABV · Mexican Lager · 12oz",
-          "precio": "$7",
-          "compact": false
-        },
-        {
-          "nombre": "Unidad 9",
-          "desc": "Reina Mora 6.9%ABV · American IPA · 12oz",
-          "precio": "$8",
           "compact": false
         },
         {
