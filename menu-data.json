@@ -47,6 +47,18 @@
           "compact": false
         },
         {
+          "nombre": "Unidad 9",
+          "desc": "Reina Mora 6.9%ABV · American IPA · 12oz",
+          "precio": "$8",
+          "compact": false
+        },
+        {
+          "nombre": "La Penúltima",
+          "desc": "Pura Vida 5.5%ABV · Australian Sparkling Ale · 12oz",
+          "precio": "$7",
+          "compact": false
+        },
+        {
           "nombre": "Sipi Mead",
           "desc": "Colonia Meadery 7%ABV · Mead · 12oz",
           "precio": "$11",
