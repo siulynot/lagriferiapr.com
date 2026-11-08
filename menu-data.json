@@ -59,6 +59,12 @@
           "compact": false
         },
         {
+          "nombre": "Sipi Mead",
+          "desc": "Colonia Meadery 7%ABV · Mead · 12oz",
+          "precio": "$11",
+          "compact": false
+        },
+        {
           "nombre": "Medalla",
           "desc": "Cervecera de Puerto Rico 4.5%ABV · Light Lager · 12oz",
           "precio": "$4",
