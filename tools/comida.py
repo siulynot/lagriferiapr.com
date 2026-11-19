@@ -3,7 +3,7 @@
 """Prende/apaga el menu de cocina del televisor y la web (menu-config.js).
 
 Escribe la linea window.HAY_COMIDA. Un solo valor a la vez:
-  chilea | chona | burger662 | 787smoke   (con comillas)
+  chilea | chona | burger662 | 787smoke | kauka   (con comillas)
   false                                   (SIN comillas: no hay comida, solo cervezas)
 
 Se niega ante cualquier otra cosa (erratas) para no apagar la comida por error
@@ -18,7 +18,7 @@ import sys, os, re, argparse
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 CFG = os.path.join(ROOT, "menu-config.js")
-VALIDAS = {"chilea", "chona", "burger662", "787smoke"}
+VALIDAS = {"chilea", "chona", "burger662", "787smoke", "kauka"}
 
 def nuevo_texto(valor):
     s = open(CFG, encoding="utf-8").read()

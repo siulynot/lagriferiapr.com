@@ -24,7 +24,7 @@
            sec-title · item · item-name · item-desc · item-price · col-inner
            upsell-label · upsell-value · addon · addon-note
            y los id: lamina-chilea · lamina-chona · lamina-burger662 ·
-           lamina-787smoke
+           lamina-787smoke · lamina-kauka
 
        Si un día se rediseña la pantalla y eso cambia, el menú del website
        deja de actualizarse —no rompe nada más, el visitante ve una nota—
@@ -346,6 +346,14 @@
        apretarse: la carta son tres renglones por lado. */
     #lamina-787smoke .grid     { grid-template-columns: 1fr 22vw 1fr; }
     #lamina-787smoke .logo-img { width: 21vw; }
+
+    /* El del Kau Kau es un sello circular de 900×900 (llena su caja), y las
+       descripciones del popup son las más largas de la rotación. Con la
+       columna de 13.5vw el sello se veía como una firma al pie; 17vw lo
+       pone a la altura del logotipo de la casa sin robarle más de lo que
+       las dos columnas pueden ceder. */
+    #lamina-kauka .grid     { grid-template-columns: 1fr 19vw 1fr; }
+    #lamina-kauka .logo-img { width: 17vw; }
   </style>
 </head>
 <body>
@@ -862,6 +870,133 @@
   </div><!-- /slide comida · 787 Smoke Rub -->
 
 
+  <!-- ══════════ LÁMINA 2e · COMIDA · KAU KAU POP-UP ══════════
+       Se enciende con HAY_COMIDA = 'kauka'. Ver la nota de la lámina de
+       Chilea: solo entra en la rotación la que el interruptor escoge.
+
+       Del cartel se toma la carta, no la promoción: las fechas (20–22 de
+       noviembre) y el lema del evento no van aquí. Lo que se anuncia es lo
+       que se vende mientras el popup esté encendido; la fecha en pantalla
+       mentiría el primer día que el popup se quede más tiempo.
+
+       Las tres secciones del popup se reparten en dos columnas: la izquierda
+       lleva las dos entradas cortas y la derecha la cena. Tres bloques no
+       caben —el centro es el logotipo— y así se leen como en el cartel. -->
+  <div class="slide popup-comida" id="lamina-kauka" hidden>
+  <div class="grid">
+
+    <!-- LEFT: MUNCHIES + PA' COMPARTIR -->
+    <div class="col">
+     <div class="col-inner">
+      <div class="sec-title">Munchies (Empanadillas)</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Filipino</div>
+          <div class="item-desc">Muslos de pollo cocidos lentos en shoyu y vinagre de caña, con hojas de laurel, cebolla y pimienta negra</div>
+        </div>
+        <span class="item-price">$5</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Trinidad</div>
+          <div class="item-desc">Papa, seta y espinaca cocidos lentos con curry trinitario casero y leche de coco · vegano</div>
+        </div>
+        <span class="item-price">$4</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Cubano</div>
+          <div class="item-desc">Cordero desmechado en vino blanco con cebolla, alcaparras y pimientos asados</div>
+        </div>
+        <span class="item-price">$6</span>
+      </div>
+
+      <div class="sec-title sec-gap">Pa' Compartir (Pinchos)</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Chicken Saye</div>
+          <div class="item-desc">Pollo a la parrilla con especias de maní de África Occidental, con salsa Yassa y ensalada verde</div>
+        </div>
+        <span class="item-price">$13</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Pork Inasal</div>
+          <div class="item-desc">Cerdo marinado en shoyu, lima-mandarina, achiote, ajo y lemongrass, con chimi y ensalada verde</div>
+        </div>
+        <span class="item-price">$12</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Piri Piri Lamb</div>
+          <div class="item-desc">Marinado en especias del sur de África y Portugal, con salsa de yogur y cilantro y ensalada verde</div>
+        </div>
+        <span class="item-price">$16</span>
+      </div>
+
+     </div><!-- /col-inner -->
+    </div>
+
+    <!-- CENTER: KAU KAU -->
+    <div class="center">
+      <img class="logo-img" src="media/kaucau-logo.png" alt="Kau Kau">
+      <div class="tagline-comida">West African · Filipino<br>Haitian · Trinidad</div>
+      <div class="site">www.lagriferiapr.com</div>
+    </div>
+
+    <!-- RIGHT: LA CENA -->
+    <div class="col">
+     <div class="col-inner">
+      <div class="sec-title">La Cena</div>
+      <div class="sec-rule"></div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Mochiko Chicken</div>
+          <div class="item-desc">Pollo frito hawaiano con salsa de miso blanco y alioli de gochujang, con arroz con furikake y ensalada verde</div>
+        </div>
+        <span class="item-price">$15</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Trini Fried Mahi</div>
+          <div class="item-desc">Mero fresco marinado en condimento verde, especias y leche de coco, con chutney de tamarindo, salsa de zanahoria y pimiento asado, arroz blanco y ensalada verde</div>
+        </div>
+        <span class="item-price">$16</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Griot</div>
+          <div class="item-desc">Cerdo estofado y frito haitiano, en hierbas y especias frescas, con chimi, arroz blanco y pikilz (vegetales picantes encurtidos)</div>
+        </div>
+        <span class="item-price">$15</span>
+      </div>
+
+      <div class="item">
+        <div class="item-info">
+          <div class="item-name">Mochiko Cauliflower</div>
+          <div class="item-desc">Bolitas de coliflor marinadas en gochujang y sake, con salsa de miso blanco, alioli de gochujang, furikake, arroz blanco y ensalada verde</div>
+        </div>
+        <span class="item-price">$14</span>
+      </div>
+
+     </div><!-- /col-inner -->
+    </div>
+
+  </div>
+  </div><!-- /slide comida · Kau Kau -->
+
+
   </div><!-- /stage -->
 
   <div class="dots" id="puntos"></div>
@@ -1048,7 +1183,7 @@
       // hay en pantalla» contra «lo que dice el archivo» sea siempre justo.
       function cualPopup(v) {
         var s = String(v == null ? '' : v).toLowerCase().replace(/['"\s]/g, '');
-        return (s === 'chilea' || s === 'chona' || s === 'burger662' || s === '787smoke') ? s : '';
+        return (s === 'chilea' || s === 'chona' || s === 'burger662' || s === '787smoke' || s === 'kauka') ? s : '';
       }
 
       var comidaEnPantalla   = cualPopup(window.HAY_COMIDA);

@@ -12,6 +12,7 @@
        'chona'      → se anuncia el menú de La Chona
        'burger662'  → se anuncia el menú de Burger 662
        '787smoke'   → se anuncia el menú de 787 Smoke Rub by Loperena
+       'kauka'      → se anuncia el menú de Kau Kau Pop-Up
        false        → no hay comida: solo cervezas   (SIN comillas)
 
    Cualquier otra cosa —una errata, un popup que no existe— apaga la comida.

@@ -54,7 +54,7 @@ git push origin HEAD:main
 
 - Ver el estado actual:
   `python3 tools/bebidas.py list`  y  `python3 tools/comida.py get`
-- **Prender/apagar cocina** (chilea / chona / burger662 / 787smoke / false):
+- **Prender/apagar cocina** (chilea / chona / burger662 / 787smoke / kauka / false):
   1. `python3 tools/comida.py set chilea --dry-run`
   2. sin `--dry-run` para escribir.
 - **Anadir bebida** (pide seccion, nombre, descripcion opcional, precio, y donde va):
